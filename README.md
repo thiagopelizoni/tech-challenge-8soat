@@ -27,11 +27,3 @@ docker-compose up --build -d
 A aplicação estará disponível em http://localhost:3000/.
 
 Esta porta é definida no [docker-compose.yml](docker-compose.yml).
-
-# Configurações
-
-As configurações que estarão dentro dos containers por meio de variáveis de ambiente estão no arquivo [.env](.env).
-
-# Estrutura
-
-Os arquivos do projeto Rails estão dentro do diretório [api](api).
