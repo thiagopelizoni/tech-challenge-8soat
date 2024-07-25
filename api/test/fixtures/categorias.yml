@@ -1,9 +1,79 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
 one:
-  nome: MyString
-  descricao: MyString
+  nome: "Lanches"
+  descricao: "Descrição de Lanches"
 
 two:
-  nome: MyString
-  descricao: MyString
+  nome: "Bebidas"
+  descricao: "Descrição de Bebidas"
+
+three:
+  nome: "Sobremesas"
+  descricao: "Descrição de Sobremesas"
+
+four:
+  nome: "Acompanhamentos"
+  descricao: "Descrição de Acompanhamentos"
+
+five:
+  nome: "Entradas"
+  descricao: "Descrição de Entradas"
+
+six:
+  nome: "Saladas"
+  descricao: "Descrição de Saladas"
+
+seven:
+  nome: "Massas"
+  descricao: "Descrição de Massas"
+
+eight:
+  nome: "Carnes"
+  descricao: "Descrição de Carnes"
+
+nine:
+  nome: "Peixes"
+  descricao: "Descrição de Peixes"
+
+ten:
+  nome: "Frutos do Mar"
+  descricao: "Descrição de Frutos do Mar"
+
+eleven:
+  nome: "Vegetariano"
+  descricao: "Descrição de Vegetariano"
+
+twelve:
+  nome: "Vegano"
+  descricao: "Descrição de Vegano"
+
+thirteen:
+  nome: "Sem Glúten"
+  descricao: "Descrição de Sem Glúten"
+
+fourteen:
+  nome: "Sem Lactose"
+  descricao: "Descrição de Sem Lactose"
+
+fifteen:
+  nome: "Doces"
+  descricao: "Descrição de Doces"
+
+sixteen:
+  nome: "Salgados"
+  descricao: "Descrição de Salgados"
+
+seventeen:
+  nome: "Frios"
+  descricao: "Descrição de Frios"
+
+eighteen:
+  nome: "Quentes"
+  descricao: "Descrição de Quentes"
+
+nineteen:
+  nome: "Grelhados"
+  descricao: "Descrição de Grelhados"
+
+twenty:
+  nome: "Assados"
+  descricao: "Descrição de Assados"
