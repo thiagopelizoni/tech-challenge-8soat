@@ -1,8 +1,18 @@
 Rails.application.routes.draw do
-  resources :produtos
+  resources :produtos do
+    collection do
+      get 'search'
+    end
+  end
+
   resources :categorias
+
   resources :categorias do
-    resources :produtos
+    resources :produtos do
+      collection do
+        get 'search'
+      end
+    end
   end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

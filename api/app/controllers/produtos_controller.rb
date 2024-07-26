@@ -13,6 +13,12 @@ class ProdutosController < ApplicationController
     render json: @produto
   end
 
+  def search
+    query = params[:q]
+    @produtos = Produto.where('nome ILIKE ?', "%#{query}%")
+    render json: @produtos
+  end
+
   # POST /produtos
   def create
     @produto = Produto.new(produto_params)
