@@ -1,79 +1,15 @@
-one:
+lanches:
+  id: 1
   nome: "Lanches"
-  descricao: "Descrição de Lanches"
 
-two:
-  nome: "Bebidas"
-  descricao: "Descrição de Bebidas"
-
-three:
-  nome: "Sobremesas"
-  descricao: "Descrição de Sobremesas"
-
-four:
+acompanhamentos:
+  id: 2
   nome: "Acompanhamentos"
-  descricao: "Descrição de Acompanhamentos"
 
-five:
-  nome: "Entradas"
-  descricao: "Descrição de Entradas"
+bebidas:
+  id: 3
+  nome: "Bebidas"
 
-six:
-  nome: "Saladas"
-  descricao: "Descrição de Saladas"
-
-seven:
-  nome: "Massas"
-  descricao: "Descrição de Massas"
-
-eight:
-  nome: "Carnes"
-  descricao: "Descrição de Carnes"
-
-nine:
-  nome: "Peixes"
-  descricao: "Descrição de Peixes"
-
-ten:
-  nome: "Frutos do Mar"
-  descricao: "Descrição de Frutos do Mar"
-
-eleven:
-  nome: "Vegetariano"
-  descricao: "Descrição de Vegetariano"
-
-twelve:
-  nome: "Vegano"
-  descricao: "Descrição de Vegano"
-
-thirteen:
-  nome: "Sem Glúten"
-  descricao: "Descrição de Sem Glúten"
-
-fourteen:
-  nome: "Sem Lactose"
-  descricao: "Descrição de Sem Lactose"
-
-fifteen:
-  nome: "Doces"
-  descricao: "Descrição de Doces"
-
-sixteen:
-  nome: "Salgados"
-  descricao: "Descrição de Salgados"
-
-seventeen:
-  nome: "Frios"
-  descricao: "Descrição de Frios"
-
-eighteen:
-  nome: "Quentes"
-  descricao: "Descrição de Quentes"
-
-nineteen:
-  nome: "Grelhados"
-  descricao: "Descrição de Grelhados"
-
-twenty:
-  nome: "Assados"
-  descricao: "Descrição de Assados"
+sobremesas:
+  id: 4
+  nome: "Sobremesas"

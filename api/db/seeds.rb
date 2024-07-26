@@ -13,3 +13,35 @@ Categoria.create([
   { nome: 'Bebidas' },
   { nome: 'Sobremesas' }
 ])
+
+Categoria.find_by(nome: 'Lanches').produtos.create([
+  { nome: 'Hamburguer', descricao: 'Hamburguer de carne com queijo', preco: 15.0 },
+  { nome: 'Sanduíche Natural', descricao: 'Sanduíche de frango com alface', preco: 12.0 },
+  { nome: 'Cachorro Quente', descricao: 'Cachorro quente com molho especial', preco: 10.0 },
+  { nome: 'Taco', descricao: 'Taco mexicano com carne moída', preco: 18.0 },
+  { nome: 'Wrap', descricao: 'Wrap de frango com legumes', preco: 14.0 }
+])
+
+Categoria.find_by(nome: 'Acompanhamentos').produtos.create([
+  { nome: 'Batata Frita', descricao: 'Batata frita crocante', preco: 8.0 },
+  { nome: 'Onion Rings', descricao: 'Anéis de cebola empanados', preco: 9.0 },
+  { nome: 'Salada Caesar', descricao: 'Salada Caesar com frango', preco: 12.0 },
+  { nome: 'Mozzarella Sticks', descricao: 'Palitos de queijo empanados', preco: 11.0 },
+  { nome: 'Sopa do Dia', descricao: 'Sopa do dia', preco: 7.0 }
+])
+
+Categoria.find_by(nome: 'Bebidas').produtos.create([
+  { nome: 'Refrigerante', descricao: 'Refrigerante gelado', preco: 5.0 },
+  { nome: 'Suco Natural', descricao: 'Suco de laranja natural', preco: 6.0 },
+  { nome: 'Água', descricao: 'Água mineral', preco: 3.0 },
+  { nome: 'Cerveja', descricao: 'Cerveja artesanal', preco: 10.0 },
+  { nome: 'Chá Gelado', descricao: 'Chá gelado de limão', preco: 5.0 }
+])
+
+Categoria.find_by(nome: 'Sobremesas').produtos.create([
+  { nome: 'Sorvete', descricao: 'Sorvete de baunilha', preco: 8.0 },
+  { nome: 'Brownie', descricao: 'Brownie de chocolate com nozes', preco: 9.0 },
+  { nome: 'Cheesecake', descricao: 'Cheesecake com calda de frutas vermelhas', preco: 10.0 },
+  { nome: 'Pudim', descricao: 'Pudim de leite condensado', preco: 7.0 },
+  { nome: 'Torta de Maçã', descricao: 'Torta de maçã com canela', preco: 11.0 }
+])
