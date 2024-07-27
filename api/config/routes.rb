@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
-  resources :clientes
+  resources :clientes do
+    collection do
+      get 'cpf/:cpf', to: 'clientes#cpf'
+    end
+  end
 
   resources :produtos do
     collection do

@@ -13,6 +13,17 @@ class ClientesController < ApplicationController
     render json: @cliente
   end
 
+  # GET /clientes/cpf/:cpf
+  def cpf
+    @cliente = Cliente.find_by(cpf: params[:cpf])
+    
+    if @cliente
+      render json: @cliente
+    else
+      render json: { error: 'Cliente não encontrado' }, status: :not_found
+    end
+  end
+
   # POST /clientes
   def create
     @cliente = Cliente.new(cliente_params)
