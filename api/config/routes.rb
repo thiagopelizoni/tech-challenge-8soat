@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   resources :clientes do
     collection do
-      get 'cpf/:cpf', to: 'clientes#cpf'
+      get 'search', to: 'clientes#search'
     end
   end
 

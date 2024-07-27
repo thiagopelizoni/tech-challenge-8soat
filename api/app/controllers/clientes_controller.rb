@@ -13,14 +13,18 @@ class ClientesController < ApplicationController
     render json: @cliente
   end
 
-  # GET /clientes/cpf/:cpf
-  def cpf
-    @cliente = Cliente.find_by(cpf: params[:cpf])
+  def search
+    query_params = params.slice(:nome, :email, :cpf, :data_nascimento)
+    @clientes = Cliente.where(nil)
     
-    if @cliente
-      render json: @cliente
+    query_params.each do |key, value|
+      @clientes = @clientes.where("#{key} ILIKE ?", "%#{value}%")
+    end
+
+    if @clientes.exists?
+      render json: @clientes
     else
-      render json: { error: 'Cliente não encontrado' }, status: :not_found
+      render json: { message: "Nenhum cliente encontrado com os parâmetros fornecidos: #{query_params.to_unsafe_h}" }, status: :not_found
     end
   end
 
