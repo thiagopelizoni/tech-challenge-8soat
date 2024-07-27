@@ -13,6 +13,10 @@ class ClientesController < ApplicationController
     render json: @cliente
   end
 
+  # GET /clientes/search?nome=Aristóteles
+  # GET /clientes/search?email=platao@example.com
+  # GET /clientes/search?cpf=12345678901
+  # GET /clientes/search?data_nascimento=1980-01-01
   def search
     query_params = params.slice(:nome, :email, :cpf, :data_nascimento)
     @clientes = Cliente.where(nil)
