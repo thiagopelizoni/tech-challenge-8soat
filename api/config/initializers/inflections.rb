@@ -17,7 +17,6 @@
 ActiveSupport::Inflector.inflections(:en) do |inflect|
   inflect.irregular('categoria', 'categorias')
   inflect.irregular('produto', 'produtos')
-  inflect.irregular('pedido', 'pedidos')
   inflect.irregular('cliente', 'clientes')
   inflect.irregular('pedido', 'pedidos')
 end
