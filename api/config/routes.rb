@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
+  root "categoria#index"
+
   resources :clientes do
     collection do
-      get 'search', to: 'clientes#search'
+      get 'search'
     end
   end
 
@@ -18,7 +20,4 @@ Rails.application.routes.draw do
   end
 
   get "up" => "rails/health#show", as: :rails_health_check
-
-  # Defines the root path route ("/")
-  root "produtos#index"
 end
