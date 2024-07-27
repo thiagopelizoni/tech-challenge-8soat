@@ -13,10 +13,25 @@ class ProdutosController < ApplicationController
     render json: @produto
   end
 
+  # GET /produtos/search?nome=hamburguer
+  # GET /produtos/search?preco=10
   def search
-    query = params[:q]
-    @produtos = Produto.where('nome ILIKE ?', "%#{query}%")
-    render json: @produtos
+    query_params = params.slice(:nome, :preco, :categoria_id)
+    @produtos = Produto.where(nil)
+
+    query_params.each do |key, value|
+      if key == "preco"
+        @produtos = @produtos.where("#{key} = ?", value)
+      else
+        @produtos = @produtos.where("#{key} ILIKE ?", "%#{value}%")
+      end
+    end
+
+    if @produtos.exists?
+      render json: @produtos
+    else
+      render json: { message: "Nenhum produto encontrado com os parâmetros fornecidos: #{query_params.to_unsafe_h}" }, status: :not_found
+    end
   end
 
   # POST /produtos
