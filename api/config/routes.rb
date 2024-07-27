@@ -11,13 +11,9 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :categorias
-
   resources :categorias do
-    resources :produtos do
-      collection do
-        get 'search'
-      end
+    collection do
+      get 'search'
     end
   end
 

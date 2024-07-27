@@ -13,6 +13,21 @@ class CategoriasController < ApplicationController
     render json: @categoria
   end
 
+  def search
+    query_params = params.slice(:nome, :descricao)
+    @categorias = Categoria.where(nil)
+    
+    query_params.each do |key, value|
+      @categorias = @categorias.where("#{key} ILIKE ?", "%#{value}%")
+    end
+
+    if @categorias.exists?
+      render json: @categorias
+    else
+      render json: { message: "Nenhuma categoria encontrado com os parâmetros fornecidos: #{query_params.to_unsafe_h}" }, status: :not_found
+    end
+  end
+
   # POST /categorias
   def create
     @categoria = Categoria.new(categoria_params)
