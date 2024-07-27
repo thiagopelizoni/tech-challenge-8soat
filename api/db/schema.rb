@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_27_045036) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_27_171613) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -34,6 +34,17 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_27_045036) do
     t.index ["email"], name: "index_clientes_on_email", unique: true
   end
 
+  create_table "pedidos", force: :cascade do |t|
+    t.bigint "cliente_id", null: false
+    t.json "produtos"
+    t.decimal "valor"
+    t.string "status"
+    t.text "observacao"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["cliente_id"], name: "index_pedidos_on_cliente_id"
+  end
+
   create_table "produtos", force: :cascade do |t|
     t.string "nome"
     t.string "descricao"
@@ -44,5 +55,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_27_045036) do
     t.index ["categoria_id"], name: "index_produtos_on_categoria_id"
   end
 
+  add_foreign_key "pedidos", "clientes"
   add_foreign_key "produtos", "categorias"
 end
