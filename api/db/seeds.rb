@@ -45,3 +45,41 @@ Categoria.find_by(nome: 'Sobremesas').produtos.create([
   { nome: 'Pudim', descricao: 'Pudim de leite condensado', preco: 7.0 },
   { nome: 'Torta de Maçã', descricao: 'Torta de maçã com canela', preco: 11.0 }
 ])
+
+Cliente.create!([
+  {
+    nome: "Aristóteles",
+    data_nascimento: "1980-01-01",
+    cpf: "12345678901",
+    email: "aristoteles@example.com",
+    senha: BCrypt::Password.create('password')
+  },
+  {
+    nome: "Platão",
+    data_nascimento: "1982-05-20",
+    cpf: "23456789012",
+    email: "platao@example.com",
+    senha: BCrypt::Password.create('password')
+  },
+  {
+    nome: "Sócrates",
+    data_nascimento: "1975-12-15",
+    cpf: "34567890123",
+    email: "socrates@example.com",
+    senha: BCrypt::Password.create('password')
+  },
+  {
+    nome: "Immanuel Kant",
+    data_nascimento: "1990-03-10",
+    cpf: "45678901234",
+    email: "kant@example.com",
+    senha: BCrypt::Password.create('password')
+  },
+  {
+    nome: "Bertrand Russell",
+    data_nascimento: "1985-07-30",
+    cpf: "56789012345",
+    email: "bertrand.russell@example.com",
+    senha: BCrypt::Password.create('password')
+  }
+])
