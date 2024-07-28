@@ -1,6 +1,11 @@
 Rails.application.routes.draw do
-  resources :pedidos
   root "categorias#index"
+  
+  resources :pedidos do
+    collection do
+      get 'search'
+    end
+  end  
 
   resources :clientes do
     collection do

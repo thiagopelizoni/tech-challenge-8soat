@@ -11,7 +11,7 @@ class PedidosController < ApplicationController
   # GET /pedidos/1
   def show
     render json: @pedido
-  end
+  end  
 
   # POST /pedidos
   def create
@@ -37,6 +37,33 @@ class PedidosController < ApplicationController
   def destroy
     @pedido.update(status: :finalizado)
     redirect_to pedidos_url, notice: 'Pedido foi finalizado com sucesso.'
+  end
+
+  def search
+    pedidos = Pedido.all
+
+    if params[:email].present?
+      cliente = Cliente.find_by(email: params[:email])
+      pedidos = pedidos.where(cliente: cliente) if cliente
+    end
+
+    if params[:cpf].present?
+      cliente = Cliente.find_by(cpf: params[:cpf])
+      pedidos = pedidos.where(cliente: cliente) if cliente
+    end
+
+    if params[:produto].present?
+      produto_ids  = Produto.where("nome ILIKE ?", "%#{params[:produto]}%").pluck(:id)
+      pedidos = pedidos.select { |pedido| (pedido.produtos & produto_ids).any? }
+    end
+
+    pedidos = pedidos.where(cliente: nil) if params[:cliente_nulo].present? && params[:cliente_nulo] == 'true'
+
+    if params[:status].present?
+      pedidos = pedidos.where(status: params[:status])
+    end
+
+    render json: pedidos, each_serializer: PedidoSerializer
   end
 
   private
