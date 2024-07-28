@@ -4,7 +4,18 @@ class ProdutosController < ApplicationController
   # GET /produtos
   def index
     @produtos = Produto.page(params[:page]).per(params[:per_page])
+    render json: @produtos
+  end
 
+  # GET /produtos/ativos
+  def ativos
+    @produtos = Produto.ativos.page(params[:page]).per(params[:per_page])
+    render json: @produtos
+  end
+
+  # GET /produtos/inativos
+  def inativos
+    @produtos = Produto.inativos.page(params[:page]).per(params[:per_page])
     render json: @produtos
   end
 
@@ -52,7 +63,8 @@ class ProdutosController < ApplicationController
 
   # DELETE /produtos/1
   def destroy
-    @produto.destroy!
+    @produto.update(status: :inativo)
+    render json: { message: 'Produto inativodo com sucesso' }
   end
 
   private
@@ -63,6 +75,6 @@ class ProdutosController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def produto_params
-      params.require(:produto).permit(:nome, :descricao, :preco, :categoria_id)
+      params.require(:produto).permit(:nome, :descricao, :preco, :categoria_id, :status)
     end
 end
