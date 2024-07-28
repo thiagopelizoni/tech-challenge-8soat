@@ -50,7 +50,7 @@ class CategoriasController < ApplicationController
 
   # DELETE /categorias/1
   def destroy
-    @categoria.destroy!
+    render json: { message: 'Não é permitido excluir uma categoria!' }
   end
 
   private
