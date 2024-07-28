@@ -3,7 +3,7 @@ class CategoriasController < ApplicationController
 
   # GET /categorias
   def index
-    @categorias = Categoria.all
+    @categorias = Categoria.page(params[:page]).per(params[:per_page])
 
     render json: @categorias
   end
@@ -18,7 +18,7 @@ class CategoriasController < ApplicationController
     @categorias = Categoria.where(nil)
     
     query_params.each do |key, value|
-      @categorias = @categorias.where("#{key} ILIKE ?", "%#{value}%")
+      @categorias = @categorias.where("#{key} ILIKE ?", "%#{value}%").page(params[:page]).per(params[:per_page])
     end
 
     if @categorias.exists?

@@ -3,7 +3,8 @@ class PedidosController < ApplicationController
 
   # GET /pedidos
   def index
-    @pedidos = Pedido.all
+    @pedidos = Pedido.page(params[:page]).per(params[:per_page]).order(created_at: :desc)
+
 
     render json: @pedidos
   end
