@@ -3,9 +3,7 @@ class PedidosController < ApplicationController
 
   # GET /pedidos
   def index
-    @pedidos = Pedido.page(params[:page]).per(params[:per_page]).order(created_at: :desc)
-
-
+    @pedidos = Pedido.page(params[:page]).per(params[:per_page]).order(updated_at: :desc)
     render json: @pedidos
   end
 
