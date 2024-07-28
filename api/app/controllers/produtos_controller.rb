@@ -3,7 +3,7 @@ class ProdutosController < ApplicationController
 
   # GET /produtos
   def index
-    @produtos = Produto.all
+    @produtos = Produto.page(params[:page]).per(params[:per_page])
 
     render json: @produtos
   end
@@ -20,11 +20,7 @@ class ProdutosController < ApplicationController
     @produtos = Produto.where(nil)
 
     query_params.each do |key, value|
-      if key == "preco"
-        @produtos = @produtos.where("#{key} = ?", value)
-      else
-        @produtos = @produtos.where("#{key} ILIKE ?", "%#{value}%")
-      end
+      @produtos = @produtos.where("#{key} ILIKE ?", "%#{value}%").page(params[:page]).per(params[:per_page])
     end
 
     if @produtos.exists?
