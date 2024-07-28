@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   resources :pedidos
-  root "categoria#index"
+  root "categorias#index"
 
   resources :clientes do
     collection do
