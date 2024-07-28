@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
-  root "categoria#index"
+  root "categorias#index"
+  
+  resources :pedidos do
+    collection do
+      get 'search'
+    end
+  end  
 
   resources :clientes do
     collection do
