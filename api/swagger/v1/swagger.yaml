@@ -1,0 +1,82 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+paths:
+  "/pedidos":
+    get:
+      summary: Listar Pedidos
+      tags:
+      - Pedidos
+      responses:
+        '200':
+          description: pedidos found
+  "/pedidos/{id}":
+    get:
+      summary: GET Pedido
+      tags:
+      - Pedidos
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: pedido found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  valor:
+                    type: number
+                  status:
+                    type: string
+                  observacao:
+                    type: string
+                  data:
+                    type: string
+                    format: date
+                  data_status:
+                    type: string
+                    format: date
+                required:
+                - id
+                - valor
+                - status
+                - observacao
+                - data
+                - data_status
+        '404':
+          description: pedido not found
+  "/pedidos/search":
+    get:
+      summary: Relatório de Pediso
+      tags:
+      - Pedidos
+      parameters:
+      - name: cpf
+        in: query
+        schema:
+          type: string
+      - name: cliente_nulo
+        in: query
+        schema:
+          type: boolean
+      - name: status
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: search results
+servers:
+- url: http://{defaultHost}
+  variables:
+    defaultHost:
+      default: localhost:3000
