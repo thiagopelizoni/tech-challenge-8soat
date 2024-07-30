@@ -1,0 +1,296 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+paths:
+  "/pedidos":
+    get:
+      summary: Listar Pedidos
+      parameters:
+      - name: page
+        in: query
+        description: Número da página
+        schema:
+          type: integer
+      - name: per_page
+        in: query
+        description: Número de itens por página
+        schema:
+          type: integer
+      tags:
+      - Pedidos
+      responses:
+        '200':
+          description: pedidos found
+  "/pedidos/{id}":
+    get:
+      summary: GET Pedido
+      tags:
+      - Pedidos
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: pedido found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  valor:
+                    type: number
+                  status:
+                    type: string
+                  observacao:
+                    type: string
+                  data:
+                    type: string
+                    format: date
+                  data_status:
+                    type: string
+                    format: date
+                required:
+                - id
+                - valor
+                - status
+                - observacao
+                - data
+                - data_status
+        '404':
+          description: pedido not found
+  "/pedidos/pronto":
+    get:
+      summary: GET Pedidos Prontos
+      tags:
+      - Pedidos
+      responses:
+        '200':
+          description: pedidos found
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    valor:
+                      type: number
+                    status:
+                      type: string
+                    observacao:
+                      type: string
+                    data:
+                      type: string
+                      format: date
+                    data_status:
+                      type: string
+                      format: date
+                    cliente:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        nome:
+                          type: string
+                        data_nascimento:
+                          type: string
+                          format: date
+                        cpf:
+                          type: string
+                        email:
+                          type: string
+                    produtos:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          id:
+                            type: integer
+                          nome:
+                            type: string
+                          descricao:
+                            type: string
+                          preco:
+                            type: number
+  "/pedidos/recebido":
+    get:
+      summary: GET Pedidos Recebidos
+      tags:
+      - Pedidos
+      responses:
+        '200':
+          description: pedidos found
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    valor:
+                      type: number
+                    status:
+                      type: string
+                    observacao:
+                      type: string
+                    data:
+                      type: string
+                      format: date
+                    data_status:
+                      type: string
+                      format: date
+                    cliente:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        nome:
+                          type: string
+                        data_nascimento:
+                          type: string
+                          format: date
+                        cpf:
+                          type: string
+                        email:
+                          type: string
+                    produtos:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          id:
+                            type: integer
+                          nome:
+                            type: string
+                          descricao:
+                            type: string
+                          preco:
+                            type: number
+  "/pedidos/em_preparacao":
+    get:
+      summary: GET Pedidos em Preparação
+      tags:
+      - Pedidos
+      responses:
+        '200':
+          description: pedidos found
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    valor:
+                      type: number
+                    status:
+                      type: string
+                    observacao:
+                      type: string
+                    data:
+                      type: string
+                      format: date
+                    data_status:
+                      type: string
+                      format: date
+                    cliente:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        nome:
+                          type: string
+                        data_nascimento:
+                          type: string
+                          format: date
+                        cpf:
+                          type: string
+                        email:
+                          type: string
+                    produtos:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          id:
+                            type: integer
+                          nome:
+                            type: string
+                          descricao:
+                            type: string
+                          preco:
+                            type: number
+  "/pedidos/finalizado":
+    get:
+      summary: GET Pedidos Finalizados
+      tags:
+      - Pedidos
+      responses:
+        '200':
+          description: pedidos found
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    valor:
+                      type: number
+                    status:
+                      type: string
+                    observacao:
+                      type: string
+                    data:
+                      type: string
+                      format: date
+                    data_status:
+                      type: string
+                      format: date
+                    cliente:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        nome:
+                          type: string
+                        data_nascimento:
+                          type: string
+                          format: date
+                        cpf:
+                          type: string
+                        email:
+                          type: string
+                    produtos:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          id:
+                            type: integer
+                          nome:
+                            type: string
+                          descricao:
+                            type: string
+                          preco:
+                            type: number
+servers:
+- url: http://{defaultHost}
+  variables:
+    defaultHost:
+      default: localhost:3000
