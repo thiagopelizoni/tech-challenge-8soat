@@ -75,6 +75,30 @@ class PedidosController < ApplicationController
     render json: pedidos, each_serializer: PedidoSerializer
   end
 
+  # GET /pedidos/pronto
+  def pronto
+    params[:status] = 'pronto'
+    search
+  end
+
+  # GET /pedidos/recebido
+  def recebido
+    params[:status] = 'recebido'
+    search
+  end
+
+  # GET /pedidos/em_preparacao
+  def em_preparacao
+    params[:status] = 'em_preparacao'
+    search
+  end
+
+  # GET /pedidos/finalizado
+  def finalizado
+    params[:status] = 'finalizado'
+    search
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_pedido

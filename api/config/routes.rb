@@ -6,8 +6,12 @@ Rails.application.routes.draw do
   resources :pedidos do
     collection do
       get 'search'
+      get 'pronto', to: 'pedidos#pronto'
+      get 'recebido', to: 'pedidos#recebido'
+      get 'em_preparacao', to: 'pedidos#em_preparacao'
+      get 'finalizado', to: 'pedidos#finalizado'
     end
-  end  
+  end
 
   resources :clientes do
     collection do
