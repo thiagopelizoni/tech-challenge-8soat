@@ -27,3 +27,9 @@ docker-compose up --build -d
 A aplicação estará disponível em http://localhost:3000/.
 
 Esta porta é definida no [docker-compose.yml](docker-compose.yml).
+
+# Swagger
+
+A documentação da API estará disponível no endereço abaixo após o projeto estar em execução.
+
+* http://localhost:3000/api-docs/index.html
