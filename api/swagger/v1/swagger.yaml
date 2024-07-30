@@ -4,6 +4,144 @@ info:
   title: API V1
   version: v1
 paths:
+  "/categorias":
+    get:
+      summary: Listar todas as categorias
+      tags:
+      - Categorias
+      responses:
+        '200':
+          description: categorias encontradas
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    nome:
+                      type: string
+                    descricao:
+                      type: string
+                    created_at:
+                      type: string
+                      format: date-time
+                    updated_at:
+                      type: string
+                      format: date-time
+                  required:
+                  - id
+                  - nome
+                  - descricao
+                  - created_at
+                  - updated_at
+    post:
+      summary: Criar uma categoria
+      tags:
+      - Categorias
+      parameters: []
+      responses:
+        '201':
+          description: categoria criada
+        '422':
+          description: categoria não criada
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nome:
+                  type: string
+                descricao:
+                  type: string
+              required:
+              - nome
+  "/categorias/{id}":
+    get:
+      summary: Mostrar uma categoria
+      tags:
+      - Categorias
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: categoria encontrada
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  nome:
+                    type: string
+                  descricao:
+                    type: string
+                  created_at:
+                    type: string
+                    format: date-time
+                  updated_at:
+                    type: string
+                    format: date-time
+                required:
+                - id
+                - nome
+                - descricao
+                - created_at
+                - updated_at
+        '404':
+          description: categoria não encontrada
+    put:
+      summary: Atualizar uma categoria
+      tags:
+      - Categorias
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: categoria atualizada
+        '404':
+          description: categoria não encontrada
+        '422':
+          description: categoria não atualizada
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nome:
+                  type: string
+                descricao:
+                  type: string
+              required:
+              - nome
+    delete:
+      summary: Deletar uma categoria
+      tags:
+      - Categorias
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: categoria deletada
+        '404':
+          description: categoria não encontrada
   "/pedidos":
     get:
       summary: Listar Pedidos
