@@ -1,14 +1,15 @@
+# spec/integration/produtos_spec.rb
 require 'swagger_helper'
 
-RSpec.describe 'Categorias API', type: :request do
-  path '/categorias' do
-    get 'Listar todas as categorias' do
+RSpec.describe 'Produtos API', type: :request do
+  path '/produtos' do
+    get 'Listar todos os produtos' do
       parameter name: :page, in: :query, type: :integer, description: 'Número da página'
       parameter name: :per_page, in: :query, type: :integer, description: 'Número de itens por página'
-      tags 'Categorias'
+      tags 'Produtos'
       produces 'application/json'
       
-      response '200', 'categorias encontradas' do
+      response '200', 'produtos encontrados' do
         schema type: :array,
                items: {
                  type: :object,
@@ -16,43 +17,49 @@ RSpec.describe 'Categorias API', type: :request do
                    id: { type: :integer },
                    nome: { type: :string },
                    descricao: { type: :string },
+                   preco: { type: :number },
+                   categoria_id: { type: :integer },
                    created_at: { type: :string, format: 'date-time' },
                    updated_at: { type: :string, format: 'date-time' }
                  },
-                 required: ['id', 'nome', 'descricao', 'created_at', 'updated_at']
+                 required: ['id', 'nome', 'descricao', 'preco', 'categoria_id', 'created_at', 'updated_at']
                }
         run_test!
       end
     end
 
-    post 'Criar uma categoria' do
-      tags 'Categorias'
+    post 'Criar um produto' do
+      tags 'Produtos'
       consumes 'application/json'
-      parameter name: :categoria, in: :body, schema: {
+      parameter name: :produto, in: :body, schema: {
         type: :object,
         properties: {
           nome: { type: :string },
-          descricao: { type: :string }
+          descricao: { type: :string },
+          preco: { type: :number },
+          categoria_id: { type: :integer }
         },
-        required: ['nome']
+        required: ['nome', 'preco', 'categoria_id']
       }
 
-      response '201', 'categoria criada' do
+      response '201', 'produto criado' do
         schema type: :object,
                properties: {
                  id: { type: :integer },
                  nome: { type: :string },
                  descricao: { type: :string },
+                 preco: { type: :number },
+                 categoria_id: { type: :integer },
                  created_at: { type: :string, format: 'date-time' },
                  updated_at: { type: :string, format: 'date-time' }
                },
-               required: ['id', 'nome', 'descricao', 'created_at', 'updated_at']
+               required: ['id', 'nome', 'descricao', 'preco', 'categoria_id', 'created_at', 'updated_at']
 
-        let(:categoria) { { nome: 'Lanches', descricao: 'Lanches variados' } }
+        let(:produto) { { nome: 'Hamburguer', descricao: 'Hamburguer de carne com queijo', preco: 15.0, categoria_id: 1 } }
         run_test!
       end
 
-      response '422', 'categoria não criada' do
+      response '422', 'produto não criado' do
         schema type: :object,
                properties: {
                  errors: {
@@ -61,74 +68,80 @@ RSpec.describe 'Categorias API', type: :request do
                  }
                }
 
-        let(:categoria) { { nome: '' } }
+        let(:produto) { { nome: '' } }
         run_test!
       end
     end
   end
 
-  path '/categorias/{id}' do
-    get 'Mostrar uma categoria' do
-      tags 'Categorias'
+  path '/produtos/{id}' do
+    get 'Mostrar um produto' do
+      tags 'Produtos'
       produces 'application/json'
       parameter name: :id, in: :path, type: :integer
 
-      response '200', 'categoria encontrada' do
+      response '200', 'produto encontrado' do
         schema type: :object,
                properties: {
                  id: { type: :integer },
                  nome: { type: :string },
                  descricao: { type: :string },
+                 preco: { type: :number },
+                 categoria_id: { type: :integer },
                  created_at: { type: :string, format: 'date-time' },
                  updated_at: { type: :string, format: 'date-time' }
                },
-               required: ['id', 'nome', 'descricao', 'created_at', 'updated_at']
+               required: ['id', 'nome', 'descricao', 'preco', 'categoria_id', 'created_at', 'updated_at']
 
-        let(:id) { Categoria.create!(nome: 'Lanches', descricao: 'Lanches variados').id }
+        let(:id) { Produto.create!(nome: 'Hamburguer', descricao: 'Hamburguer de carne com queijo', preco: 15.0, categoria_id: 1).id }
         run_test!
       end
 
-      response '404', 'categoria não encontrada' do
+      response '404', 'produto não encontrado' do
         let(:id) { 'invalid' }
         run_test!
       end
     end
 
-    put 'Atualizar uma categoria' do
-      tags 'Categorias'
+    put 'Atualizar um produto' do
+      tags 'Produtos'
       consumes 'application/json'
       parameter name: :id, in: :path, type: :integer
-      parameter name: :categoria, in: :body, schema: {
+      parameter name: :produto, in: :body, schema: {
         type: :object,
         properties: {
           nome: { type: :string },
-          descricao: { type: :string }
+          descricao: { type: :string },
+          preco: { type: :number },
+          categoria_id: { type: :integer }
         },
-        required: ['nome']
+        required: ['nome', 'preco', 'categoria_id']
       }
 
-      response '200', 'categoria atualizada' do
+      response '200', 'produto atualizado' do
         schema type: :object,
                properties: {
                  id: { type: :integer },
                  nome: { type: :string },
                  descricao: { type: :string },
+                 preco: { type: :number },
+                 categoria_id: { type: :integer },
                  created_at: { type: :string, format: 'date-time' },
                  updated_at: { type: :string, format: 'date-time' }
                },
-               required: ['id', 'nome', 'descricao', 'created_at', 'updated_at']
+               required: ['id', 'nome', 'descricao', 'preco', 'categoria_id', 'created_at', 'updated_at']
 
-        let(:id) { Categoria.create!(nome: 'Lanches', descricao: 'Lanches variados').id }
-        let(:categoria) { { nome: 'Lanches Atualizados', descricao: 'Lanches diversos' } }
+        let(:id) { Produto.create!(nome: 'Hamburguer', descricao: 'Hamburguer de carne com queijo', preco: 15.0, categoria_id: 1).id }
+        let(:produto) { { nome: 'Hamburguer Atualizado', descricao: 'Hamburguer de carne com queijo e bacon', preco: 20.0, categoria_id: 1 } }
         run_test!
       end
 
-      response '404', 'categoria não encontrada' do
+      response '404', 'produto não encontrado' do
         let(:id) { 'invalid' }
         run_test!
       end
 
-      response '422', 'categoria não atualizada' do
+      response '422', 'produto não atualizado' do
         schema type: :object,
                properties: {
                  errors: {
@@ -137,23 +150,23 @@ RSpec.describe 'Categorias API', type: :request do
                  }
                }
 
-        let(:id) { Categoria.create!(nome: 'Lanches', descricao: 'Lanches variados').id }
-        let(:categoria) { { nome: '' } }
+        let(:id) { Produto.create!(nome: 'Hamburguer', descricao: 'Hamburguer de carne com queijo', preco: 15.0, categoria_id: 1).id }
+        let(:produto) { { nome: '' } }
         run_test!
       end
     end
 
-    delete 'Deletar uma categoria' do
-      tags 'Categorias'
+    delete 'Deletar um produto' do
+      tags 'Produtos'
       produces 'application/json'
       parameter name: :id, in: :path, type: :integer
 
-      response '204', 'categoria deletada' do
-        let(:id) { Categoria.create!(nome: 'Lanches', descricao: 'Lanches variados').id }
+      response '204', 'produto deletado' do
+        let(:id) { Produto.create!(nome: 'Hamburguer', descricao: 'Hamburguer de carne com queijo', preco: 15.0, categoria_id: 1).id }
         run_test!
       end
 
-      response '404', 'categoria não encontrada' do
+      response '404', 'produto não encontrado' do
         let(:id) { 'invalid' }
         run_test!
       end

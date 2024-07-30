@@ -7,6 +7,17 @@ paths:
   "/categorias":
     get:
       summary: Listar todas as categorias
+      parameters:
+      - name: page
+        in: query
+        description: Número da página
+        schema:
+          type: integer
+      - name: per_page
+        in: query
+        description: Número de itens por página
+        schema:
+          type: integer
       tags:
       - Categorias
       responses:
@@ -427,6 +438,179 @@ paths:
                             type: string
                           preco:
                             type: number
+  "/produtos":
+    get:
+      summary: Listar todos os produtos
+      parameters:
+      - name: page
+        in: query
+        description: Número da página
+        schema:
+          type: integer
+      - name: per_page
+        in: query
+        description: Número de itens por página
+        schema:
+          type: integer
+      tags:
+      - Produtos
+      responses:
+        '200':
+          description: produtos encontrados
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    nome:
+                      type: string
+                    descricao:
+                      type: string
+                    preco:
+                      type: number
+                    categoria_id:
+                      type: integer
+                    created_at:
+                      type: string
+                      format: date-time
+                    updated_at:
+                      type: string
+                      format: date-time
+                  required:
+                  - id
+                  - nome
+                  - descricao
+                  - preco
+                  - categoria_id
+                  - created_at
+                  - updated_at
+    post:
+      summary: Criar um produto
+      tags:
+      - Produtos
+      parameters: []
+      responses:
+        '201':
+          description: produto criado
+        '422':
+          description: produto não criado
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nome:
+                  type: string
+                descricao:
+                  type: string
+                preco:
+                  type: number
+                categoria_id:
+                  type: integer
+              required:
+              - nome
+              - preco
+              - categoria_id
+  "/produtos/{id}":
+    get:
+      summary: Mostrar um produto
+      tags:
+      - Produtos
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: produto encontrado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  nome:
+                    type: string
+                  descricao:
+                    type: string
+                  preco:
+                    type: number
+                  categoria_id:
+                    type: integer
+                  created_at:
+                    type: string
+                    format: date-time
+                  updated_at:
+                    type: string
+                    format: date-time
+                required:
+                - id
+                - nome
+                - descricao
+                - preco
+                - categoria_id
+                - created_at
+                - updated_at
+        '404':
+          description: produto não encontrado
+    put:
+      summary: Atualizar um produto
+      tags:
+      - Produtos
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: produto atualizado
+        '404':
+          description: produto não encontrado
+        '422':
+          description: produto não atualizado
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nome:
+                  type: string
+                descricao:
+                  type: string
+                preco:
+                  type: number
+                categoria_id:
+                  type: integer
+              required:
+              - nome
+              - preco
+              - categoria_id
+    delete:
+      summary: Deletar um produto
+      tags:
+      - Produtos
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: produto deletado
+        '404':
+          description: produto não encontrado
 servers:
 - url: http://{defaultHost}
   variables:
