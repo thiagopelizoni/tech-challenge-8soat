@@ -42,7 +42,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_31_215522) do
     t.text "observacao"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "pagamento"
+    t.string "pagamento", default: "em_aberto", null: false
     t.index ["cliente_id"], name: "index_pedidos_on_cliente_id"
   end
 
