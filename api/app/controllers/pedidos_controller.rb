@@ -75,6 +75,18 @@ class PedidosController < ApplicationController
     render json: pedidos, each_serializer: PedidoSerializer
   end
 
+  # GET /pedidos/pago
+  def pago
+    params[:pagamento] = 'efetuado'
+    search
+  end
+
+  # GET /pedidos/em-aberto
+  def nao_pago
+    params[:pagamento] = 'em_aberto'
+    search
+  end
+
   # GET /pedidos/pronto
   def pronto
     params[:status] = 'pronto'
@@ -87,7 +99,7 @@ class PedidosController < ApplicationController
     search
   end
 
-  # GET /pedidos/em_preparacao
+  # GET /pedidos/em-preparacao
   def em_preparacao
     params[:status] = 'em_preparacao'
     search
@@ -107,6 +119,6 @@ class PedidosController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def pedido_params
-      params.require(:pedido).permit(:cliente_id, :produtos, :valor, :status, :observacao)
+      params.require(:pedido).permit(:cliente_id, :produtos, :valor, :status, :observacao, , :pagamento)
     end
 end

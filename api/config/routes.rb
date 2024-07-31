@@ -5,11 +5,13 @@ Rails.application.routes.draw do
   
   resources :pedidos do
     collection do
-      get 'search'
+      get 'search', to: 'pedidos#search'
       get 'pronto', to: 'pedidos#pronto'
       get 'recebido', to: 'pedidos#recebido'
-      get 'em_preparacao', to: 'pedidos#em_preparacao'
+      get 'em-preparacao', to: 'pedidos#em_preparacao'
       get 'finalizado', to: 'pedidos#finalizado'
+      get 'pago', to: 'pedidos#pago'
+      get 'em-aberto', to: 'pedidos#em_aberto'
     end
   end
 
