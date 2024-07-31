@@ -182,6 +182,11 @@ paths:
                     type: number
                   status:
                     type: string
+                    enum:
+                    - recebido
+                    - em_preparacao
+                    - pronto
+                    - finalizado
                   observacao:
                     type: string
                   data:
@@ -208,6 +213,17 @@ paths:
   "/pedidos/pronto":
     get:
       summary: GET Pedidos Prontos
+      parameters:
+      - name: page
+        in: query
+        description: Número da página
+        schema:
+          type: integer
+      - name: per_page
+        in: query
+        description: Número de itens por página
+        schema:
+          type: integer
       tags:
       - Pedidos
       responses:
@@ -226,6 +242,11 @@ paths:
                       type: number
                     status:
                       type: string
+                      enum:
+                      - recebido
+                      - em_preparacao
+                      - pronto
+                      - finalizado
                     observacao:
                       type: string
                     data:
@@ -267,6 +288,17 @@ paths:
                           preco:
                             type: number
   "/pedidos/recebido":
+    parameters:
+    - name: page
+      in: query
+      description: Número da página
+      schema:
+        type: integer
+    - name: per_page
+      in: query
+      description: Número de itens por página
+      schema:
+        type: integer
     get:
       summary: GET Pedidos Recebidos
       tags:
@@ -287,6 +319,11 @@ paths:
                       type: number
                     status:
                       type: string
+                      enum:
+                      - recebido
+                      - em_preparacao
+                      - pronto
+                      - finalizado
                     observacao:
                       type: string
                     data:
@@ -327,9 +364,20 @@ paths:
                             type: string
                           preco:
                             type: number
-  "/pedidos/em_preparacao":
+  "/pedidos/em-preparacao":
     get:
       summary: GET Pedidos em Preparação
+      parameters:
+      - name: page
+        in: query
+        description: Número da página
+        schema:
+          type: integer
+      - name: per_page
+        in: query
+        description: Número de itens por página
+        schema:
+          type: integer
       tags:
       - Pedidos
       responses:
@@ -348,6 +396,11 @@ paths:
                       type: number
                     status:
                       type: string
+                      enum:
+                      - recebido
+                      - em_preparacao
+                      - pronto
+                      - finalizado
                     observacao:
                       type: string
                     data:
@@ -391,6 +444,171 @@ paths:
   "/pedidos/finalizado":
     get:
       summary: GET Pedidos Finalizados
+      parameters:
+      - name: page
+        in: query
+        description: Número da página
+        schema:
+          type: integer
+      - name: per_page
+        in: query
+        description: Número de itens por página
+        schema:
+          type: integer
+      tags:
+      - Pedidos
+      responses:
+        '200':
+          description: pedidos found
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    valor:
+                      type: number
+                    status:
+                      type: string
+                      enum:
+                      - recebido
+                      - em_preparacao
+                      - pronto
+                      - finalizado
+                    observacao:
+                      type: string
+                    data:
+                      type: string
+                      format: date
+                    data_status:
+                      type: string
+                      format: date
+                    pagamento:
+                      type: string
+                      enum:
+                      - efetuado
+                      - em_aberto
+                    cliente:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        nome:
+                          type: string
+                        data_nascimento:
+                          type: string
+                          format: date
+                        cpf:
+                          type: string
+                        email:
+                          type: string
+                    produtos:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          id:
+                            type: integer
+                          nome:
+                            type: string
+                          descricao:
+                            type: string
+                          preco:
+                            type: number
+  "/pedidos/pago":
+    parameters:
+    - name: page
+      in: query
+      description: Número da página
+      schema:
+        type: integer
+    - name: per_page
+      in: query
+      description: Número de itens por página
+      schema:
+        type: integer
+    get:
+      summary: GET Pedidos Pagos
+      tags:
+      - Pedidos
+      responses:
+        '200':
+          description: pedidos found
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    valor:
+                      type: number
+                    status:
+                      type: string
+                      enum:
+                      - recebido
+                      - em_preparacao
+                      - pronto
+                      - finalizado
+                    observacao:
+                      type: string
+                    data:
+                      type: string
+                      format: date
+                    data_status:
+                      type: string
+                      format: date
+                    pagamento:
+                      type: string
+                      enum:
+                      - efetuado
+                      - em_aberto
+                    cliente:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        nome:
+                          type: string
+                        data_nascimento:
+                          type: string
+                          format: date
+                        cpf:
+                          type: string
+                        email:
+                          type: string
+                    produtos:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          id:
+                            type: integer
+                          nome:
+                            type: string
+                          descricao:
+                            type: string
+                          preco:
+                            type: number
+  "/pedidos/em-aberto":
+    get:
+      summary: GET Pedidos Pagos
+      parameters:
+      - name: page
+        in: query
+        description: Número da página
+        schema:
+          type: integer
+      - name: per_page
+        in: query
+        description: Número de itens por página
+        schema:
+          type: integer
       tags:
       - Pedidos
       responses:
@@ -420,7 +638,6 @@ paths:
                     pagamento:
                       type: string
                       enum:
-                      - efetuado
                       - em_aberto
                     cliente:
                       type: object
