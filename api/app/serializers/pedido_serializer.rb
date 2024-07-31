@@ -1,5 +1,5 @@
 class PedidoSerializer < ActiveModel::Serializer
-  attributes :id, :valor, :status, :observacao, :data, :data_status
+  attributes :id, :valor, :status, :observacao, :data, :data_status, :pagamento
   belongs_to :cliente, serializer: ClienteSerializer
   has_many :produtos, serializer: ProdutoSerializer
 
