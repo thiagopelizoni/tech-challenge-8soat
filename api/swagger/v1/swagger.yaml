@@ -6,7 +6,7 @@ info:
 paths:
   "/categorias":
     get:
-      summary: Listar todas as categorias
+      summary: Listar Categorias
       parameters:
       - name: page
         in: query
@@ -49,7 +49,7 @@ paths:
                   - created_at
                   - updated_at
     post:
-      summary: Criar uma categoria
+      summary: Criar Categoria
       tags:
       - Categorias
       parameters: []
@@ -72,7 +72,7 @@ paths:
               - nome
   "/categorias/{id}":
     get:
-      summary: Mostrar uma categoria
+      summary: Exibir uma Categoria
       tags:
       - Categorias
       parameters:
@@ -110,7 +110,7 @@ paths:
         '404':
           description: categoria não encontrada
     put:
-      summary: Atualizar uma categoria
+      summary: Atualizar uma Categoria
       tags:
       - Categorias
       parameters:
@@ -138,21 +138,6 @@ paths:
                   type: string
               required:
               - nome
-    delete:
-      summary: Deletar uma categoria
-      tags:
-      - Categorias
-      parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: integer
-      responses:
-        '204':
-          description: categoria deletada
-        '404':
-          description: categoria não encontrada
   "/pedidos":
     get:
       summary: Listar Pedidos
@@ -440,7 +425,7 @@ paths:
                             type: number
   "/produtos":
     get:
-      summary: Listar todos os produtos
+      summary: Listar Produtos
       parameters:
       - name: page
         in: query
@@ -489,7 +474,7 @@ paths:
                   - created_at
                   - updated_at
     post:
-      summary: Criar um produto
+      summary: Criar Produto
       tags:
       - Produtos
       parameters: []
@@ -518,7 +503,7 @@ paths:
               - categoria_id
   "/produtos/{id}":
     get:
-      summary: Mostrar um produto
+      summary: Exibir um Produto
       tags:
       - Produtos
       parameters:
@@ -562,7 +547,7 @@ paths:
         '404':
           description: produto não encontrado
     put:
-      summary: Atualizar um produto
+      summary: Atualizar Produto
       tags:
       - Produtos
       parameters:
@@ -596,21 +581,6 @@ paths:
               - nome
               - preco
               - categoria_id
-    delete:
-      summary: Deletar um produto
-      tags:
-      - Produtos
-      parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: integer
-      responses:
-        '204':
-          description: produto deletado
-        '404':
-          description: produto não encontrado
 servers:
 - url: http://{defaultHost}
   variables:

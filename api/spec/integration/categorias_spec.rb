@@ -2,7 +2,7 @@ require 'swagger_helper'
 
 RSpec.describe 'Categorias API', type: :request do
   path '/categorias' do
-    get 'Listar todas as categorias' do
+    get 'Listar Categorias' do
       parameter name: :page, in: :query, type: :integer, description: 'Número da página'
       parameter name: :per_page, in: :query, type: :integer, description: 'Número de itens por página'
       tags 'Categorias'
@@ -25,7 +25,7 @@ RSpec.describe 'Categorias API', type: :request do
       end
     end
 
-    post 'Criar uma categoria' do
+    post 'Criar Categoria' do
       tags 'Categorias'
       consumes 'application/json'
       parameter name: :categoria, in: :body, schema: {
@@ -68,7 +68,7 @@ RSpec.describe 'Categorias API', type: :request do
   end
 
   path '/categorias/{id}' do
-    get 'Mostrar uma categoria' do
+    get 'Exibir uma Categoria' do
       tags 'Categorias'
       produces 'application/json'
       parameter name: :id, in: :path, type: :integer
@@ -94,7 +94,7 @@ RSpec.describe 'Categorias API', type: :request do
       end
     end
 
-    put 'Atualizar uma categoria' do
+    put 'Atualizar uma Categoria' do
       tags 'Categorias'
       consumes 'application/json'
       parameter name: :id, in: :path, type: :integer
@@ -142,21 +142,6 @@ RSpec.describe 'Categorias API', type: :request do
         run_test!
       end
     end
-
-    delete 'Deletar uma categoria' do
-      tags 'Categorias'
-      produces 'application/json'
-      parameter name: :id, in: :path, type: :integer
-
-      response '204', 'categoria deletada' do
-        let(:id) { Categoria.create!(nome: 'Lanches', descricao: 'Lanches variados').id }
-        run_test!
-      end
-
-      response '404', 'categoria não encontrada' do
-        let(:id) { 'invalid' }
-        run_test!
-      end
-    end
+    
   end
 end

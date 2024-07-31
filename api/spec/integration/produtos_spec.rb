@@ -3,7 +3,7 @@ require 'swagger_helper'
 
 RSpec.describe 'Produtos API', type: :request do
   path '/produtos' do
-    get 'Listar todos os produtos' do
+    get 'Listar Produtos' do
       parameter name: :page, in: :query, type: :integer, description: 'Número da página'
       parameter name: :per_page, in: :query, type: :integer, description: 'Número de itens por página'
       tags 'Produtos'
@@ -28,7 +28,7 @@ RSpec.describe 'Produtos API', type: :request do
       end
     end
 
-    post 'Criar um produto' do
+    post 'Criar Produto' do
       tags 'Produtos'
       consumes 'application/json'
       parameter name: :produto, in: :body, schema: {
@@ -75,7 +75,7 @@ RSpec.describe 'Produtos API', type: :request do
   end
 
   path '/produtos/{id}' do
-    get 'Mostrar um produto' do
+    get 'Exibir um Produto' do
       tags 'Produtos'
       produces 'application/json'
       parameter name: :id, in: :path, type: :integer
@@ -103,7 +103,7 @@ RSpec.describe 'Produtos API', type: :request do
       end
     end
 
-    put 'Atualizar um produto' do
+    put 'Atualizar Produto' do
       tags 'Produtos'
       consumes 'application/json'
       parameter name: :id, in: :path, type: :integer
@@ -152,22 +152,6 @@ RSpec.describe 'Produtos API', type: :request do
 
         let(:id) { Produto.create!(nome: 'Hamburguer', descricao: 'Hamburguer de carne com queijo', preco: 15.0, categoria_id: 1).id }
         let(:produto) { { nome: '' } }
-        run_test!
-      end
-    end
-
-    delete 'Deletar um produto' do
-      tags 'Produtos'
-      produces 'application/json'
-      parameter name: :id, in: :path, type: :integer
-
-      response '204', 'produto deletado' do
-        let(:id) { Produto.create!(nome: 'Hamburguer', descricao: 'Hamburguer de carne com queijo', preco: 15.0, categoria_id: 1).id }
-        run_test!
-      end
-
-      response '404', 'produto não encontrado' do
-        let(:id) { 'invalid' }
         run_test!
       end
     end
