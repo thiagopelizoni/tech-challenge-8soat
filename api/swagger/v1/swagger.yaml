@@ -190,6 +190,11 @@ paths:
                   data_status:
                     type: string
                     format: date
+                  pagamento:
+                    type: string
+                    enum:
+                    - efetuado
+                    - em_aberto
                 required:
                 - id
                 - valor
@@ -197,6 +202,7 @@ paths:
                 - observacao
                 - data
                 - data_status
+                - pagamento
         '404':
           description: pedido not found
   "/pedidos/pronto":
@@ -228,6 +234,11 @@ paths:
                     data_status:
                       type: string
                       format: date
+                    pagamento:
+                      type: string
+                      enum:
+                      - efetuado
+                      - em_aberto
                     cliente:
                       type: object
                       properties:
@@ -284,6 +295,11 @@ paths:
                     data_status:
                       type: string
                       format: date
+                    pagamento:
+                      type: string
+                      enum:
+                      - efetuado
+                      - em_aberto
                     cliente:
                       type: object
                       properties:
@@ -340,6 +356,11 @@ paths:
                     data_status:
                       type: string
                       format: date
+                    pagamento:
+                      type: string
+                      enum:
+                      - efetuado
+                      - em_aberto
                     cliente:
                       type: object
                       properties:
@@ -396,6 +417,11 @@ paths:
                     data_status:
                       type: string
                       format: date
+                    pagamento:
+                      type: string
+                      enum:
+                      - efetuado
+                      - em_aberto
                     cliente:
                       type: object
                       properties:

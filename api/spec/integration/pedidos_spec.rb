@@ -28,11 +28,12 @@ RSpec.describe 'Pedidos API', type: :request do
             status: { type: :string },
             observacao: { type: :string },
             data: { type: :string, format: 'date' },
-            data_status: { type: :string, format: 'date' }
+            data_status: { type: :string, format: 'date' },
+            pagamento: { type: :string, enum: ['efetuado', 'em_aberto'] }
           },
-          required: [ 'id', 'valor', 'status', 'observacao', 'data', 'data_status' ]
+          required: [ 'id', 'valor', 'status', 'observacao', 'data', 'data_status', 'pagamento' ]
 
-        let(:id) { Pedido.create!(valor: 10.0, status: 'recebido', observacao: 'test').id }
+        let(:id) { Pedido.create!(valor: 10.0, status: 'recebido', observacao: 'test', pagamento: 'em_aberto').id }
         run_test!
       end
 
@@ -59,6 +60,7 @@ RSpec.describe 'Pedidos API', type: :request do
                    observacao: { type: :string },
                    data: { type: :string, format: 'date' },
                    data_status: { type: :string, format: 'date' },
+                   pagamento: { type: :string, enum: ['efetuado', 'em_aberto'] },
                    cliente: {
                      type: :object,
                      properties: {
@@ -104,6 +106,7 @@ RSpec.describe 'Pedidos API', type: :request do
                    observacao: { type: :string },
                    data: { type: :string, format: 'date' },
                    data_status: { type: :string, format: 'date' },
+                   pagamento: { type: :string, enum: ['efetuado', 'em_aberto'] },
                    cliente: {
                      type: :object,
                      properties: {
@@ -149,6 +152,7 @@ RSpec.describe 'Pedidos API', type: :request do
                    observacao: { type: :string },
                    data: { type: :string, format: 'date' },
                    data_status: { type: :string, format: 'date' },
+                   pagamento: { type: :string, enum: ['efetuado', 'em_aberto'] },
                    cliente: {
                      type: :object,
                      properties: {
@@ -194,6 +198,7 @@ RSpec.describe 'Pedidos API', type: :request do
                    observacao: { type: :string },
                    data: { type: :string, format: 'date' },
                    data_status: { type: :string, format: 'date' },
+                   pagamento: { type: :string, enum: ['efetuado', 'em_aberto'] },
                    cliente: {
                      type: :object,
                      properties: {
