@@ -99,8 +99,8 @@ RSpec.describe 'Pedidos API', type: :request do
     end
   end
 
-  path '/pedidos/pronto' do
-    get 'GET Pedidos Prontos' do
+  path '/pedidos/em-aberto' do
+    get 'GET Pedidos sem Pagamento confirmado' do
       parameter name: :page, in: :query, type: :integer, description: 'Número da página'
       parameter name: :per_page, in: :query, type: :integer, description: 'Número de itens por página'
       tags 'Pedidos'
@@ -113,155 +113,11 @@ RSpec.describe 'Pedidos API', type: :request do
                  properties: {
                    id: { type: :integer },
                    valor: { type: :number },
-                   status: { type: :string,  enum: ['recebido', 'em_preparacao', 'pronto', 'finalizado'] },
+                   status: { type: :string },
                    observacao: { type: :string },
                    data: { type: :string, format: 'date' },
                    data_status: { type: :string, format: 'date' },
-                   pagamento: { type: :string, enum: ['efetuado', 'em_aberto'] },
-                   cliente: {
-                     type: :object,
-                     properties: {
-                       id: { type: :integer },
-                       nome: { type: :string },
-                       data_nascimento: { type: :string, format: 'date' },
-                       cpf: { type: :string },
-                       email: { type: :string }
-                     }
-                   },
-                   produtos: {
-                     type: :array,
-                     items: {
-                       type: :object,
-                       properties: {
-                         id: { type: :integer },
-                         nome: { type: :string },
-                         descricao: { type: :string },
-                         preco: { type: :number }
-                       }
-                     }
-                   }
-                 }
-               }
-        run_test!
-      end
-    end
-  end
-
-  path '/pedidos/recebido' do
-    parameter name: :page, in: :query, type: :integer, description: 'Número da página'
-    parameter name: :per_page, in: :query, type: :integer, description: 'Número de itens por página'
-    get 'GET Pedidos Recebidos' do
-      tags 'Pedidos'
-      produces 'application/json'
-
-      response '200', 'pedidos found' do
-        schema type: :array,
-               items: {
-                 type: :object,
-                 properties: {
-                   id: { type: :integer },
-                   valor: { type: :number },
-                   status: { type: :string,  enum: ['recebido', 'em_preparacao', 'pronto', 'finalizado'] },
-                   observacao: { type: :string },
-                   data: { type: :string, format: 'date' },
-                   data_status: { type: :string, format: 'date' },
-                   pagamento: { type: :string, enum: ['efetuado', 'em_aberto'] },
-                   cliente: {
-                     type: :object,
-                     properties: {
-                       id: { type: :integer },
-                       nome: { type: :string },
-                       data_nascimento: { type: :string, format: 'date' },
-                       cpf: { type: :string },
-                       email: { type: :string }
-                     }
-                   },
-                   produtos: {
-                     type: :array,
-                     items: {
-                       type: :object,
-                       properties: {
-                         id: { type: :integer },
-                         nome: { type: :string },
-                         descricao: { type: :string },
-                         preco: { type: :number }
-                       }
-                     }
-                   }
-                 }
-               }
-        run_test!
-      end
-    end
-  end
-
-  path '/pedidos/em-preparacao' do
-    get 'GET Pedidos em Preparação' do
-      parameter name: :page, in: :query, type: :integer, description: 'Número da página'
-      parameter name: :per_page, in: :query, type: :integer, description: 'Número de itens por página'
-      tags 'Pedidos'
-      produces 'application/json'
-
-      response '200', 'pedidos found' do
-        schema type: :array,
-               items: {
-                 type: :object,
-                 properties: {
-                   id: { type: :integer },
-                   valor: { type: :number },
-                   status: { type: :string,  enum: ['recebido', 'em_preparacao', 'pronto', 'finalizado'] },
-                   observacao: { type: :string },
-                   data: { type: :string, format: 'date' },
-                   data_status: { type: :string, format: 'date' },
-                   pagamento: { type: :string, enum: ['efetuado', 'em_aberto'] },
-                   cliente: {
-                     type: :object,
-                     properties: {
-                       id: { type: :integer },
-                       nome: { type: :string },
-                       data_nascimento: { type: :string, format: 'date' },
-                       cpf: { type: :string },
-                       email: { type: :string }
-                     }
-                   },
-                   produtos: {
-                     type: :array,
-                     items: {
-                       type: :object,
-                       properties: {
-                         id: { type: :integer },
-                         nome: { type: :string },
-                         descricao: { type: :string },
-                         preco: { type: :number }
-                       }
-                     }
-                   }
-                 }
-               }
-        run_test!
-      end
-    end
-  end
-
-  path '/pedidos/finalizado' do
-    get 'GET Pedidos Finalizados' do
-      parameter name: :page, in: :query, type: :integer, description: 'Número da página'
-      parameter name: :per_page, in: :query, type: :integer, description: 'Número de itens por página'
-      tags 'Pedidos'
-      produces 'application/json'
-
-      response '200', 'pedidos found' do
-        schema type: :array,
-               items: {
-                 type: :object,
-                 properties: {
-                   id: { type: :integer },
-                   valor: { type: :number },
-                   status: { type: :string,  enum: ['recebido', 'em_preparacao', 'pronto', 'finalizado'] },
-                   observacao: { type: :string },
-                   data: { type: :string, format: 'date' },
-                   data_status: { type: :string, format: 'date' },
-                   pagamento: { type: :string, enum: ['efetuado', 'em_aberto'] },
+                   pagamento: { type: :string, enum: ['em_aberto'] },
                    cliente: {
                      type: :object,
                      properties: {
@@ -339,10 +195,28 @@ RSpec.describe 'Pedidos API', type: :request do
     end
   end
 
-  path '/pedidos/em-aberto' do
-    get 'GET Pedidos sem Pagamento confirmado' do
-      parameter name: :page, in: :query, type: :integer, description: 'Número da página'
-      parameter name: :per_page, in: :query, type: :integer, description: 'Número de itens por página'
+  path '/pedidos/{id}/pagar' do
+    put 'Atualiza o pagamento do pedido para "Efetuado"' do
+      tags 'Pedidos'
+      parameter name: :id, in: :path, type: :integer
+
+      response '200', 'pagamento efetuado' do
+        let(:pedido) { create(:pedido, pagamento: 'em_aberto') }
+        let(:id) { pedido.id }
+        run_test!
+      end
+
+      response '422', 'parâmetros inválidos' do
+        let(:id) { 'invalid' }
+        run_test!
+      end
+    end
+  end
+
+  path '/pedidos/recebido' do
+    parameter name: :page, in: :query, type: :integer, description: 'Número da página'
+    parameter name: :per_page, in: :query, type: :integer, description: 'Número de itens por página'
+    get 'GET Pedidos Recebidos' do
       tags 'Pedidos'
       produces 'application/json'
 
@@ -353,11 +227,11 @@ RSpec.describe 'Pedidos API', type: :request do
                  properties: {
                    id: { type: :integer },
                    valor: { type: :number },
-                   status: { type: :string },
+                   status: { type: :string,  enum: ['recebido', 'em_preparacao', 'pronto', 'finalizado'] },
                    observacao: { type: :string },
                    data: { type: :string, format: 'date' },
                    data_status: { type: :string, format: 'date' },
-                   pagamento: { type: :string, enum: ['em_aberto'] },
+                   pagamento: { type: :string, enum: ['efetuado', 'em_aberto'] },
                    cliente: {
                      type: :object,
                      properties: {
@@ -387,24 +261,6 @@ RSpec.describe 'Pedidos API', type: :request do
     end
   end
 
-  path '/pedidos/{id}/pagar' do
-    put 'Atualiza o pagamento do pedido para "Efetuado"' do
-      tags 'Pedidos'
-      parameter name: :id, in: :path, type: :integer
-
-      response '200', 'pagamento efetuado' do
-        let(:pedido) { create(:pedido, pagamento: 'em_aberto') }
-        let(:id) { pedido.id }
-        run_test!
-      end
-
-      response '422', 'parâmetros inválidos' do
-        let(:id) { 'invalid' }
-        run_test!
-      end
-    end
-  end
-
   path '/pedidos/{id}/receber' do
     put 'Atualiza o status do pedido para "Recebido"' do
       tags 'Pedidos'
@@ -418,6 +274,54 @@ RSpec.describe 'Pedidos API', type: :request do
 
       response '422', 'parâmetros inválidos' do
         let(:id) { 'invalid' }
+        run_test!
+      end
+    end
+  end
+
+  path '/pedidos/em-preparacao' do
+    get 'GET Pedidos em Preparação' do
+      parameter name: :page, in: :query, type: :integer, description: 'Número da página'
+      parameter name: :per_page, in: :query, type: :integer, description: 'Número de itens por página'
+      tags 'Pedidos'
+      produces 'application/json'
+
+      response '200', 'pedidos found' do
+        schema type: :array,
+               items: {
+                 type: :object,
+                 properties: {
+                   id: { type: :integer },
+                   valor: { type: :number },
+                   status: { type: :string,  enum: ['recebido', 'em_preparacao', 'pronto', 'finalizado'] },
+                   observacao: { type: :string },
+                   data: { type: :string, format: 'date' },
+                   data_status: { type: :string, format: 'date' },
+                   pagamento: { type: :string, enum: ['efetuado', 'em_aberto'] },
+                   cliente: {
+                     type: :object,
+                     properties: {
+                       id: { type: :integer },
+                       nome: { type: :string },
+                       data_nascimento: { type: :string, format: 'date' },
+                       cpf: { type: :string },
+                       email: { type: :string }
+                     }
+                   },
+                   produtos: {
+                     type: :array,
+                     items: {
+                       type: :object,
+                       properties: {
+                         id: { type: :integer },
+                         nome: { type: :string },
+                         descricao: { type: :string },
+                         preco: { type: :number }
+                       }
+                     }
+                   }
+                 }
+               }
         run_test!
       end
     end
@@ -441,6 +345,54 @@ RSpec.describe 'Pedidos API', type: :request do
     end
   end
 
+  path '/pedidos/pronto' do
+    get 'GET Pedidos Prontos' do
+      parameter name: :page, in: :query, type: :integer, description: 'Número da página'
+      parameter name: :per_page, in: :query, type: :integer, description: 'Número de itens por página'
+      tags 'Pedidos'
+      produces 'application/json'
+
+      response '200', 'pedidos found' do
+        schema type: :array,
+               items: {
+                 type: :object,
+                 properties: {
+                   id: { type: :integer },
+                   valor: { type: :number },
+                   status: { type: :string,  enum: ['recebido', 'em_preparacao', 'pronto', 'finalizado'] },
+                   observacao: { type: :string },
+                   data: { type: :string, format: 'date' },
+                   data_status: { type: :string, format: 'date' },
+                   pagamento: { type: :string, enum: ['efetuado', 'em_aberto'] },
+                   cliente: {
+                     type: :object,
+                     properties: {
+                       id: { type: :integer },
+                       nome: { type: :string },
+                       data_nascimento: { type: :string, format: 'date' },
+                       cpf: { type: :string },
+                       email: { type: :string }
+                     }
+                   },
+                   produtos: {
+                     type: :array,
+                     items: {
+                       type: :object,
+                       properties: {
+                         id: { type: :integer },
+                         nome: { type: :string },
+                         descricao: { type: :string },
+                         preco: { type: :number }
+                       }
+                     }
+                   }
+                 }
+               }
+        run_test!
+      end
+    end
+  end
+
   path '/pedidos/{id}/pronto' do
     put 'Atualiza o status do pedido para "Pronto"' do
       tags 'Pedidos'
@@ -454,6 +406,54 @@ RSpec.describe 'Pedidos API', type: :request do
 
       response '422', 'parâmetros inválidos' do
         let(:id) { 'invalid' }
+        run_test!
+      end
+    end
+  end
+
+  path '/pedidos/finalizado' do
+    get 'GET Pedidos Finalizados' do
+      parameter name: :page, in: :query, type: :integer, description: 'Número da página'
+      parameter name: :per_page, in: :query, type: :integer, description: 'Número de itens por página'
+      tags 'Pedidos'
+      produces 'application/json'
+
+      response '200', 'pedidos found' do
+        schema type: :array,
+               items: {
+                 type: :object,
+                 properties: {
+                   id: { type: :integer },
+                   valor: { type: :number },
+                   status: { type: :string,  enum: ['recebido', 'em_preparacao', 'pronto', 'finalizado'] },
+                   observacao: { type: :string },
+                   data: { type: :string, format: 'date' },
+                   data_status: { type: :string, format: 'date' },
+                   pagamento: { type: :string, enum: ['efetuado', 'em_aberto'] },
+                   cliente: {
+                     type: :object,
+                     properties: {
+                       id: { type: :integer },
+                       nome: { type: :string },
+                       data_nascimento: { type: :string, format: 'date' },
+                       cpf: { type: :string },
+                       email: { type: :string }
+                     }
+                   },
+                   produtos: {
+                     type: :array,
+                     items: {
+                       type: :object,
+                       properties: {
+                         id: { type: :integer },
+                         nome: { type: :string },
+                         descricao: { type: :string },
+                         preco: { type: :number }
+                       }
+                     }
+                   }
+                 }
+               }
         run_test!
       end
     end
