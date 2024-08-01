@@ -12,6 +12,32 @@ RSpec.describe 'Pedidos API', type: :request do
         run_test!
       end
     end
+
+    post 'Criação de Pedido' do
+      tags 'Pedidos'
+      consumes 'application/json'
+      parameter name: :pedido, in: :body, schema: {
+        type: :object,
+        properties: {
+          cliente_id: { type: :integer, nullable: true },
+          produtos: { type: :array, items: { type: :integer } },
+          observacao: { type: :string, nullable: true },
+          pagamento: { type: :string, enum: ['efetuado', 'em_aberto'] },
+          status: { type: :string, enum: ['recebido', 'em_preparacao', 'pronto', 'finalizado'] }
+        },
+        required: ['produtos']
+      }
+  
+      response '201', 'pedido criado' do
+        let(:pedido) { { produtos: [1, 2], observacao: 'Sem cebola', pagamento: 'em_aberto', status: 'recebido' } }
+        run_test!
+      end
+  
+      response '422', 'parâmetros inválidos' do
+        let(:pedido) { { produtos: [], observacao: 'Observacao muito longa' * 100, pagamento: 'efetuado', status: 'invalido' } }
+        run_test!
+      end
+    end
   end
 
   path '/pedidos/{id}' do
@@ -39,6 +65,34 @@ RSpec.describe 'Pedidos API', type: :request do
 
       response '404', 'pedido not found' do
         let(:id) { 'invalid' }
+        run_test!
+      end
+    end
+    put 'Atualização de Pedido' do
+      tags 'Pedidos'
+      consumes 'application/json'
+      parameter name: :id, in: :path, type: :string
+      parameter name: :pedido, in: :body, schema: {
+        type: :object,
+        properties: {
+          cliente_id: { type: :integer, nullable: true },
+          produtos: { type: :array, items: { type: :integer } },
+          observacao: { type: :string, nullable: true },
+          pagamento: { type: :string, enum: ['efetuado', 'em_aberto'] },
+          status: { type: :string, enum: ['recebido', 'em_preparacao', 'pronto', 'finalizado'] }
+        },
+        required: ['produtos']
+      }
+  
+      response '200', 'pedido atualizado' do
+        let(:id) { Pedido.create(produtos: [1, 2], observacao: 'Sem cebola', pagamento: 'em_aberto', status: 'recebido').id }
+        let(:pedido) { { produtos: [3, 4], observacao: 'Com molho', pagamento: 'efetuado', status: 'pronto' } }
+        run_test!
+      end
+  
+      response '422', 'parâmetros inválidos' do
+        let(:id) { Pedido.create(produtos: [1, 2], observacao: 'Sem cebola', pagamento: 'em_aberto', status: 'recebido').id }
+        let(:pedido) { { produtos: [], observacao: 'Observacao muito longa' * 100, pagamento: 'efetuado', status: 'invalido' } }
         run_test!
       end
     end

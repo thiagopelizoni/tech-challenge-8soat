@@ -310,6 +310,46 @@ paths:
       responses:
         '200':
           description: pedidos found
+    post:
+      summary: Criação de Pedido
+      tags:
+      - Pedidos
+      parameters: []
+      responses:
+        '201':
+          description: pedido criado
+        '422':
+          description: parâmetros inválidos
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                cliente_id:
+                  type: integer
+                  nullable: true
+                produtos:
+                  type: array
+                  items:
+                    type: integer
+                observacao:
+                  type: string
+                  nullable: true
+                pagamento:
+                  type: string
+                  enum:
+                  - efetuado
+                  - em_aberto
+                status:
+                  type: string
+                  enum:
+                  - recebido
+                  - em_preparacao
+                  - pronto
+                  - finalizado
+              required:
+              - produtos
   "/pedidos/{id}":
     get:
       summary: GET Pedido
@@ -363,6 +403,51 @@ paths:
                 - pagamento
         '404':
           description: pedido not found
+    put:
+      summary: Atualização de Pedido
+      tags:
+      - Pedidos
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: pedido atualizado
+        '422':
+          description: parâmetros inválidos
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                cliente_id:
+                  type: integer
+                  nullable: true
+                produtos:
+                  type: array
+                  items:
+                    type: integer
+                observacao:
+                  type: string
+                  nullable: true
+                pagamento:
+                  type: string
+                  enum:
+                  - efetuado
+                  - em_aberto
+                status:
+                  type: string
+                  enum:
+                  - recebido
+                  - em_preparacao
+                  - pronto
+                  - finalizado
+              required:
+              - produtos
   "/pedidos/pronto":
     get:
       summary: GET Pedidos Prontos
