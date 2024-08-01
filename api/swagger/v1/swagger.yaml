@@ -138,6 +138,159 @@ paths:
                   type: string
               required:
               - nome
+  "/clientes":
+    get:
+      summary: Listar Clientes
+      tags:
+      - Clientes
+      responses:
+        '200':
+          description: clientes encontrados
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    nome:
+                      type: string
+                    data_nascimento:
+                      type: string
+                      format: date
+                    cpf:
+                      type: string
+                    email:
+                      type: string
+                    created_at:
+                      type: string
+                      format: date-time
+                    updated_at:
+                      type: string
+                      format: date-time
+                  required:
+                  - id
+                  - nome
+                  - data_nascimento
+                  - cpf
+                  - email
+    post:
+      summary: Cria um cliente
+      tags:
+      - Clientes
+      parameters: []
+      responses:
+        '201':
+          description: cliente criado
+        '422':
+          description: parâmetros inválidos
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nome:
+                  type: string
+                data_nascimento:
+                  type: string
+                  format: date
+                cpf:
+                  type: string
+                email:
+                  type: string
+                senha:
+                  type: string
+              required:
+              - nome
+              - data_nascimento
+              - cpf
+              - email
+              - senha
+  "/clientes/{id}":
+    get:
+      summary: Exibe um cliente
+      tags:
+      - Clientes
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: cliente encontrado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  nome:
+                    type: string
+                  data_nascimento:
+                    type: string
+                    format: date
+                  cpf:
+                    type: string
+                  email:
+                    type: string
+                  created_at:
+                    type: string
+                    format: date-time
+                  updated_at:
+                    type: string
+                    format: date-time
+                required:
+                - id
+                - nome
+                - data_nascimento
+                - cpf
+                - email
+        '404':
+          description: cliente não encontrado
+    put:
+      summary: Atualiza um cliente
+      tags:
+      - Clientes
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: cliente atualizado
+        '422':
+          description: parâmetros inválidos
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nome:
+                  type: string
+                data_nascimento:
+                  type: string
+                  format: date
+                cpf:
+                  type: string
+                email:
+                  type: string
+                senha:
+                  type: string
+              required:
+              - nome
+              - data_nascimento
+              - cpf
+              - email
+              - senha
   "/pedidos":
     get:
       summary: Listar Pedidos
