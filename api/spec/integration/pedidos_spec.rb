@@ -285,7 +285,7 @@ RSpec.describe 'Pedidos API', type: :request do
   end
 
   path '/pedidos/em-aberto' do
-    get 'GET Pedidos Pagos' do
+    get 'GET Pedidos sem Pagamento confirmado' do
       parameter name: :page, in: :query, type: :integer, description: 'Número da página'
       parameter name: :per_page, in: :query, type: :integer, description: 'Número de itens por página'
       tags 'Pedidos'

@@ -597,7 +597,7 @@ paths:
                             type: number
   "/pedidos/em-aberto":
     get:
-      summary: GET Pedidos Pagos
+      summary: GET Pedidos sem Pagamento confirmado
       parameters:
       - name: page
         in: query
