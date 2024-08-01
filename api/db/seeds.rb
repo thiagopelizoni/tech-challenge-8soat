@@ -125,7 +125,7 @@ sobremesas = Categoria.find_by(nome: 'Sobremesas').produtos
 
 clientes = Cliente.all
 
-30.times do
+100.times do
   produtos = (
     lanches.sample(rand(1..3)) +
     bebidas.sample(rand(1..2)) +
@@ -141,37 +141,13 @@ clientes = Cliente.all
     observacao: nil,
   )
 
-  Pedido.create!(
+  p = Pedido.create(
     cliente: clientes.sample,
     produtos: produtos,
-    pagamento: 'efetuado',
     status: status_options.sample,
     observacao: "Observação do pedido"
   )
-end
 
-# Pedidos com cliente nulo
-20.times do
-  produtos = (
-    lanches.sample(rand(1..3)) +
-    bebidas.sample(rand(1..2)) +
-    acompanhamentos.sample(1) +
-    sobremesas.sample(rand(1..2))
-  ).map(&:id)
-
-  Pedido.create!(
-    cliente: nil,
-    produtos: produtos,
-    pagamento: 'em_aberto',
-    status: nil,
-    observacao: nil
-  )
-
-  Pedido.create!(
-    cliente: nil,
-    produtos: produtos,
-    pagamento: 'efetuado',
-    status: status_options.sample,
-    observacao: "Observação do pedido"
-  )
+  p.pagamento = 'efetuado'
+  p.save!
 end
