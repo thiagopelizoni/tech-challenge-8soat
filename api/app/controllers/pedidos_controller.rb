@@ -82,7 +82,7 @@ class PedidosController < ApplicationController
   end
 
   # GET /pedidos/em-aberto
-  def nao_pago
+  def em_aberto
     params[:pagamento] = 'em_aberto'
     search
   end
