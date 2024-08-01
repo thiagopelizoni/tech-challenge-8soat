@@ -38,16 +38,6 @@ class PedidosController < ApplicationController
     redirect_to pedidos_url, notice: 'Pedido foi finalizado com sucesso.'
   end
 
-  # GET /pedidos/search?attribute=value
-  # GET /pedidos/search?status=em_preparacao
-  # GET /pedidos/search?status=recebido
-  # GET /pedidos/search?status=pronto
-  # GET /pedidos/search?status=finalizado
-  # GET /pedidos/search?cliente_nulo=true
-  # GET /pedidos/search?cpf=12345678901
-  # GET /pedidos/search?cpf=23456789012&status=em_preparacao
-  # GET /pedidos/search?email=platao@example.com
-  # GET /pedidos/search?produto=taco
   def search
     pedidos = Pedido.all
 
@@ -70,6 +60,10 @@ class PedidosController < ApplicationController
 
     if params[:status].present?
       pedidos = pedidos.where(status: params[:status])
+    end
+
+    if params[:pagamento].present?
+      pedidos = pedidos.where(pagamento: params[:pagamento])
     end
 
     render json: pedidos, each_serializer: PedidoSerializer
