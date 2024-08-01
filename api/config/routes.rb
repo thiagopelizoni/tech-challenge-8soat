@@ -13,6 +13,14 @@ Rails.application.routes.draw do
       get 'pago', to: 'pedidos#pago'
       get 'em-aberto', to: 'pedidos#em_aberto'
     end
+
+    member do
+      put 'pagar', to: 'pedidos#pagar'
+      put 'receber', to: 'pedidos#receber'
+      put 'preparar', to: 'pedidos#preparar'
+      put 'pronto', to: 'pedidos#pronto'
+      put 'finalizar', to: 'pedidos#finalizar'
+    end
   end
 
   resources :clientes do

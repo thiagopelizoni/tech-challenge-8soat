@@ -904,6 +904,86 @@ paths:
                             type: string
                           preco:
                             type: number
+  "/pedidos/{id}/pagar":
+    put:
+      summary: Atualiza o pagamento do pedido para "Efetuado"
+      tags:
+      - Pedidos
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: pagamento efetuado
+        '422':
+          description: parâmetros inválidos
+  "/pedidos/{id}/receber":
+    put:
+      summary: Atualiza o status do pedido para "Recebido"
+      tags:
+      - Pedidos
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: pedido recebido
+        '422':
+          description: parâmetros inválidos
+  "/pedidos/{id}/preparar":
+    put:
+      summary: Atualiza o status do pedido para "Em Preparação"
+      tags:
+      - Pedidos
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: pedido em preparação
+        '422':
+          description: parâmetros inválidos
+  "/pedidos/{id}/pronto":
+    put:
+      summary: Atualiza o status do pedido para "Pronto"
+      tags:
+      - Pedidos
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: pedido pronto
+        '422':
+          description: parâmetros inválidos
+  "/pedidos/{id}/finalizar":
+    put:
+      summary: Atualiza o status do pedido para "Finalizado"
+      tags:
+      - Pedidos
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: pedido finalizado
+        '422':
+          description: parâmetros inválidos
   "/produtos":
     get:
       summary: Listar Produtos

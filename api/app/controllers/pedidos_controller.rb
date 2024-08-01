@@ -105,6 +105,51 @@ class PedidosController < ApplicationController
     search
   end
 
+  # PUT /pedidos/:id/pagar
+  def pagar
+    if @pedido.update(pagamento: 'efetuado')
+      render json: @pedido, status: :ok
+    else
+      render json: @pedido.errors, status: :unprocessable_entity
+    end
+  end
+
+  # PUT /pedidos/:id/receber
+  def receber
+    if @pedido.update(status: 'recebido')
+      render json: @pedido, status: :ok
+    else
+      render json: @pedido.errors, status: :unprocessable_entity
+    end
+  end
+
+  # PUT /pedidos/:id/preparar
+  def preparar
+    if @pedido.update(status: 'em_preparacao')
+      render json: @pedido, status: :ok
+    else
+      render json: @pedido.errors, status: :unprocessable_entity
+    end
+  end
+
+  # PUT /pedidos/:id/pronto
+  def pronto
+    if @pedido.update(status: 'pronto')
+      render json: @pedido, status: :ok
+    else
+      render json: @pedido.errors, status: :unprocessable_entity
+    end
+  end
+
+  # PUT /pedidos/:id/finalizar
+  def finalizar
+    if @pedido.update(status: 'finalizado')
+      render json: @pedido, status: :ok
+    else
+      render json: @pedido.errors, status: :unprocessable_entity
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_pedido

@@ -68,6 +68,7 @@ RSpec.describe 'Pedidos API', type: :request do
         run_test!
       end
     end
+
     put 'Atualização de Pedido' do
       tags 'Pedidos'
       consumes 'application/json'
@@ -381,6 +382,96 @@ RSpec.describe 'Pedidos API', type: :request do
                    }
                  }
                }
+        run_test!
+      end
+    end
+  end
+
+  path '/pedidos/{id}/pagar' do
+    put 'Atualiza o pagamento do pedido para "Efetuado"' do
+      tags 'Pedidos'
+      parameter name: :id, in: :path, type: :integer
+
+      response '200', 'pagamento efetuado' do
+        let(:pedido) { create(:pedido, pagamento: 'em_aberto') }
+        let(:id) { pedido.id }
+        run_test!
+      end
+
+      response '422', 'parâmetros inválidos' do
+        let(:id) { 'invalid' }
+        run_test!
+      end
+    end
+  end
+
+  path '/pedidos/{id}/receber' do
+    put 'Atualiza o status do pedido para "Recebido"' do
+      tags 'Pedidos'
+      parameter name: :id, in: :path, type: :integer
+
+      response '200', 'pedido recebido' do
+        let(:pedido) { create(:pedido, status: 'em_preparacao') }
+        let(:id) { pedido.id }
+        run_test!
+      end
+
+      response '422', 'parâmetros inválidos' do
+        let(:id) { 'invalid' }
+        run_test!
+      end
+    end
+  end
+
+  path '/pedidos/{id}/preparar' do
+    put 'Atualiza o status do pedido para "Em Preparação"' do
+      tags 'Pedidos'
+      parameter name: :id, in: :path, type: :integer
+
+      response '200', 'pedido em preparação' do
+        let(:pedido) { create(:pedido, status: 'recebido') }
+        let(:id) { pedido.id }
+        run_test!
+      end
+
+      response '422', 'parâmetros inválidos' do
+        let(:id) { 'invalid' }
+        run_test!
+      end
+    end
+  end
+
+  path '/pedidos/{id}/pronto' do
+    put 'Atualiza o status do pedido para "Pronto"' do
+      tags 'Pedidos'
+      parameter name: :id, in: :path, type: :integer
+
+      response '200', 'pedido pronto' do
+        let(:pedido) { create(:pedido, status: 'em_preparacao') }
+        let(:id) { pedido.id }
+        run_test!
+      end
+
+      response '422', 'parâmetros inválidos' do
+        let(:id) { 'invalid' }
+        run_test!
+      end
+    end
+  end
+
+  path '/pedidos/{id}/finalizar' do
+    put 'Atualiza o status do pedido para "Finalizado"' do
+      tags 'Pedidos'
+      parameter name: :id, in: :path, type: :integer
+
+      response '200', 'pedido finalizado' do
+        let(:pedido) { create(:pedido, status: 'pronto') }
+        let(:id) { pedido.id }
+        run_test!
+      end
+
+      response '422', 'parâmetros inválidos' do
+        let(:id) { 'invalid' }
         run_test!
       end
     end
