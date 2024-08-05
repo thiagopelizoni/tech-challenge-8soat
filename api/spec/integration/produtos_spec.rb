@@ -75,7 +75,7 @@ RSpec.describe 'Produtos API', type: :request do
   end
 
   path '/produtos/{id}' do
-    get 'Exibir um Produto' do
+    get 'Buscar um Produto pelo seu ID' do
       tags 'Produtos'
       produces 'application/json'
       parameter name: :id, in: :path, type: :integer
@@ -100,6 +100,27 @@ RSpec.describe 'Produtos API', type: :request do
       response '404', 'produto não encontrado' do
         let(:id) { 'invalid' }
         run_test!
+      end
+    end
+
+    path '/produtos/nome/{nome}' do
+      get 'Busca Produtos por nome' do
+        tags 'Produtos'
+        produces 'application/json'
+        parameter name: :nome, in: :path, type: :string, description: 'Nome do produto'
+  
+        response '200', 'Produtos encontrados' do
+          schema type: :array,
+                 items: { '$ref' => '#/components/schemas/produto' }
+  
+          let(:nome) { 'ProdutoExemplo' }
+          run_test!
+        end
+  
+        response '404', 'Nenhum produto encontrado' do
+          let(:nome) { 'NomeInexistente' }
+          run_test!
+        end
       end
     end
 

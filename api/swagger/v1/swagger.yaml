@@ -1156,7 +1156,7 @@ paths:
               - categoria_id
   "/produtos/{id}":
     get:
-      summary: Exibir um Produto
+      summary: Buscar um Produto pelo seu ID
       tags:
       - Produtos
       parameters:
@@ -1234,6 +1234,29 @@ paths:
               - nome
               - preco
               - categoria_id
+  "/produtos/nome/{nome}":
+    get:
+      summary: Busca Produtos por nome
+      tags:
+      - Produtos
+      parameters:
+      - name: nome
+        in: path
+        description: Nome do produto
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Produtos encontrados
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/produto"
+        '404':
+          description: Nenhum produto encontrado
 servers:
 - url: http://{defaultHost}
   variables:

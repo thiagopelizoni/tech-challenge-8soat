@@ -34,7 +34,7 @@ Rails.application.routes.draw do
 
   resources :produtos do
     collection do
-      get 'search'
+      get 'nome/:nome', to: 'produtos#search_by_nome', as: :search_produtos_by_nome
       get 'ativos'
       get 'inativos'
     end

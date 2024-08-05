@@ -24,20 +24,12 @@ class ProdutosController < ApplicationController
     render json: @produto
   end
 
-  # GET /produtos/search?nome=hamburguer
-  # GET /produtos/search?preco=10
-  def search
-    query_params = params.slice(:nome, :preco, :categoria_id)
-    @produtos = Produto.where(nil)
-
-    query_params.each do |key, value|
-      @produtos = @produtos.where("#{key} ILIKE ?", "%#{value}%").page(params[:page]).per(params[:per_page])
-    end
-
+  def search_by_nome
+    @produtos = Produto.where("nome ILIKE ?", "%#{params[:nome]}%")
     if @produtos.exists?
       render json: @produtos
     else
-      render json: { message: "Nenhum produto encontrado com os parâmetros fornecidos: #{query_params.to_unsafe_h}" }, status: :not_found
+      render json: { message: "Nenhum produto encontrado com o nome: #{params[:nome]}" }, status: :not_found
     end
   end
 
@@ -68,13 +60,12 @@ class ProdutosController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_produto
-      @produto = Produto.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def produto_params
-      params.require(:produto).permit(:nome, :descricao, :preco, :categoria_id, :status)
-    end
+  def set_produto
+    @produto = Produto.find(params[:id])
+  end
+
+  def produto_params
+    params.require(:produto).permit(:nome, :descricao, :preco, :categoria_id, :status)
+  end
 end
