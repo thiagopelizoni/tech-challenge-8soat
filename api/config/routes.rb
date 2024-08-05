@@ -26,6 +26,7 @@ Rails.application.routes.draw do
   resources :clientes do
     collection do
       get 'search'
+      get 'cpf/:cpf', to: 'clientes#cpf'
     end
   end
 

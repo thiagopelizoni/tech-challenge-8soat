@@ -32,6 +32,23 @@ class ClientesController < ApplicationController
     end
   end
 
+  # GET /clientes/cpf/:cpf
+  def cpf
+    cpf = params[:cpf]
+  
+    if cpf.present? && cpf.match?(/^\d{11}$/)
+      @cliente = Cliente.find_by(cpf: cpf)
+  
+      if @cliente
+        render json: @cliente
+      else
+        render json: { message: "Nenhum cliente encontrado com o CPF: #{cpf}" }, status: :not_found
+      end
+    else
+      render json: { message: "CPF inválido ou não fornecido." }, status: :bad_request
+    end
+  end
+
   # POST /clientes
   def create
     @cliente = Cliente.new(cliente_params)

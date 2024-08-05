@@ -291,6 +291,25 @@ paths:
               - cpf
               - email
               - senha
+  "/clientes/cpf/{cpf}":
+    get:
+      summary: Busca cliente por CPF
+      tags:
+      - Clientes
+      parameters:
+      - name: cpf
+        in: path
+        description: CPF do cliente
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful
+        '404':
+          description: not found
+        '400':
+          description: bad request
   "/pedidos":
     get:
       summary: Listar Pedidos

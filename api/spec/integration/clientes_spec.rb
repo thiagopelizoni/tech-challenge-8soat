@@ -57,6 +57,30 @@ RSpec.describe 'clientes API', type: :request do
       end
     end
 
+    path '/clientes/cpf/{cpf}' do
+      get 'Busca cliente por CPF' do
+        tags 'Clientes'
+        consumes 'application/json'
+        parameter name: :cpf, in: :path, type: :string, description: 'CPF do cliente'
+  
+        response(200, 'successful') do
+          let(:cpf) { create(:cliente).cpf }
+          schema '$ref' => '#/components/schemas/Cliente'
+          run_test!
+        end
+  
+        response(404, 'not found') do
+          let(:cpf) { '11111111111' }
+          run_test!
+        end
+  
+        response(400, 'bad request') do
+          let(:cpf) { 'cpf_invalido' }
+          run_test!
+        end
+      end
+    end
+
     put 'Atualiza um cliente' do
       tags 'Clientes'
       consumes 'application/json'
