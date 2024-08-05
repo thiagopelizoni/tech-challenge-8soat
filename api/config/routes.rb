@@ -25,8 +25,10 @@ Rails.application.routes.draw do
 
   resources :clientes do
     collection do
-      get 'search'
-      get 'cpf/:cpf', to: 'clientes#cpf'
+      get 'nome/:nome', to: 'clientes#search_by_nome', as: :search_by_nome
+      get 'email/:email', to: 'clientes#search_by_email', as: :search_by_email
+      get 'cpf/:cpf', to: 'clientes#search_by_cpf', as: :search_by_cpf
+      get 'data_nascimento/:data_nascimento', to: 'clientes#search_by_data_nascimento', as: :search_by_data_nascimento
     end
   end
 

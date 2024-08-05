@@ -13,40 +13,24 @@ class ClientesController < ApplicationController
     render json: @cliente
   end
 
-  # GET /clientes/search?nome=Aristóteles
-  # GET /clientes/search?email=platao@example.com
-  # GET /clientes/search?cpf=12345678901
-  # GET /clientes/search?data_nascimento=1980-01-01
-  def search
-    query_params = params.slice(:nome, :email, :cpf, :data_nascimento)
-    @clientes = Cliente.where(nil)
-    
-    query_params.each do |key, value|
-      @clientes = @clientes.where("#{key} ILIKE ?", "%#{value}%")
-    end
-
-    if @clientes.exists?
-      render json: @clientes
-    else
-      render json: { message: "Nenhum cliente encontrado com os parâmetros fornecidos: #{query_params.to_unsafe_h}" }, status: :not_found
-    end
+  def search_by_nome
+    @clientes = Cliente.where("nome ILIKE ?", "%#{params[:nome]}%")
+    render_search_results(@clientes, params[:nome])
   end
 
-  # GET /clientes/cpf/:cpf
-  def cpf
-    cpf = params[:cpf]
-  
-    if cpf.present? && cpf.match?(/^\d{11}$/)
-      @cliente = Cliente.find_by(cpf: cpf)
-  
-      if @cliente
-        render json: @cliente
-      else
-        render json: { message: "Nenhum cliente encontrado com o CPF: #{cpf}" }, status: :not_found
-      end
-    else
-      render json: { message: "CPF inválido ou não fornecido." }, status: :bad_request
-    end
+  def search_by_email
+    @clientes = Cliente.where("email ILIKE ?", "%#{params[:email]}%")
+    render_search_results(@clientes, params[:email])
+  end
+
+  def search_by_cpf
+    @clientes = Cliente.where("cpf ILIKE ?", "%#{params[:cpf]}%")
+    render_search_results(@clientes, params[:cpf])
+  end
+
+  def search_by_data_nascimento
+    @clientes = Cliente.where("data_nascimento = ?", params[:data_nascimento])
+    render_search_results(@clientes, params[:data_nascimento])
   end
 
   # POST /clientes
@@ -75,13 +59,22 @@ class ClientesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_cliente
-      @cliente = Cliente.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def cliente_params
-      params.require(:cliente).permit(:nome, :data_nascimento, :cpf, :email, :senha)
+  def render_search_results(clientes, query_param)
+    if clientes.exists?
+      render json: clientes
+    else
+      render json: { message: "Nenhum cliente encontrado com o parâmetro fornecido: #{query_param}" }, status: :not_found
     end
+  end
+
+  # Use callbacks to share common setup or constraints between actions.
+  def set_cliente
+    @cliente = Cliente.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def cliente_params
+    params.require(:cliente).permit(:nome, :data_nascimento, :cpf, :email, :senha)
+  end
 end

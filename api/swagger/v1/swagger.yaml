@@ -211,7 +211,7 @@ paths:
               - senha
   "/clientes/{id}":
     get:
-      summary: Exibe um cliente
+      summary: Busca um Cliente pelo seu ID
       tags:
       - Clientes
       parameters:
@@ -291,9 +291,55 @@ paths:
               - cpf
               - email
               - senha
+  "/clientes/nome/{nome}":
+    get:
+      summary: Busca clientes pelo Nome
+      tags:
+      - Clientes
+      parameters:
+      - name: nome
+        in: path
+        description: Nome do cliente
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Clientes encontrados
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/cliente"
+        '404':
+          description: Nenhum cliente encontrado
+  "/clientes/email/{email}":
+    get:
+      summary: Busca clientes por email
+      tags:
+      - Clientes
+      parameters:
+      - name: email
+        in: path
+        description: Email do cliente
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Clientes encontrados
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/cliente"
+        '404':
+          description: Nenhum cliente encontrado
   "/clientes/cpf/{cpf}":
     get:
-      summary: Busca cliente por CPF
+      summary: Busca um cliente pelo CPF
       tags:
       - Clientes
       parameters:
@@ -305,11 +351,38 @@ paths:
           type: string
       responses:
         '200':
-          description: successful
+          description: Clientes encontrados
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/cliente"
         '404':
-          description: not found
-        '400':
-          description: bad request
+          description: Nenhum cliente encontrado
+  "/clientes/data_nascimento/{data_nascimento}":
+    get:
+      summary: Busca clientes pela Data de Nascimento
+      tags:
+      - Clientes
+      parameters:
+      - name: data_nascimento
+        in: path
+        description: Data de nascimento do cliente (YYYY-MM-DD)
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Clientes encontrados
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/cliente"
+        '404':
+          description: Nenhum cliente encontrado
   "/pedidos":
     get:
       summary: Listar Pedidos

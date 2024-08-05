@@ -29,7 +29,7 @@ RSpec.describe 'clientes API', type: :request do
   end  
 
   path '/clientes/{id}' do
-    get 'Exibe um cliente' do
+    get 'Busca um Cliente pelo seu ID' do
       tags 'Clientes'
       produces 'application/json'
       parameter name: :id, in: :path, type: :string
@@ -57,25 +57,85 @@ RSpec.describe 'clientes API', type: :request do
       end
     end
 
-    path '/clientes/cpf/{cpf}' do
-      get 'Busca cliente por CPF' do
+    path '/clientes/nome/{nome}' do
+      get 'Busca clientes pelo Nome' do
         tags 'Clientes'
-        consumes 'application/json'
+        produces 'application/json'
+        parameter name: :nome, in: :path, type: :string, description: 'Nome do cliente'
+  
+        response '200', 'Clientes encontrados' do
+          schema type: :array,
+                 items: { '$ref' => '#/components/schemas/cliente' }
+  
+          let(:nome) { 'Aristóteles' }
+          run_test!
+        end
+  
+        response '404', 'Nenhum cliente encontrado' do
+          let(:nome) { 'NomeInexistente' }
+          run_test!
+        end
+      end
+    end
+  
+    path '/clientes/email/{email}' do
+      get 'Busca clientes por email' do
+        tags 'Clientes'
+        produces 'application/json'
+        parameter name: :email, in: :path, type: :string, description: 'Email do cliente'
+  
+        response '200', 'Clientes encontrados' do
+          schema type: :array,
+                 items: { '$ref' => '#/components/schemas/cliente' }
+  
+          let(:email) { 'platao@example.com' }
+          run_test!
+        end
+  
+        response '404', 'Nenhum cliente encontrado' do
+          let(:email) { 'emailinexistente@example.com' }
+          run_test!
+        end
+      end
+    end
+  
+    path '/clientes/cpf/{cpf}' do
+      get 'Busca um cliente pelo CPF' do
+        tags 'Clientes'
+        produces 'application/json'
         parameter name: :cpf, in: :path, type: :string, description: 'CPF do cliente'
   
-        response(200, 'successful') do
-          let(:cpf) { create(:cliente).cpf }
-          schema '$ref' => '#/components/schemas/Cliente'
+        response '200', 'Clientes encontrados' do
+          schema type: :array,
+                 items: { '$ref' => '#/components/schemas/cliente' }
+  
+          let(:cpf) { '12345678901' }
           run_test!
         end
   
-        response(404, 'not found') do
-          let(:cpf) { '11111111111' }
+        response '404', 'Nenhum cliente encontrado' do
+          let(:cpf) { '00000000000' }
+          run_test!
+        end
+      end
+    end
+  
+    path '/clientes/data_nascimento/{data_nascimento}' do
+      get 'Busca clientes pela Data de Nascimento' do
+        tags 'Clientes'
+        produces 'application/json'
+        parameter name: :data_nascimento, in: :path, type: :string, description: 'Data de nascimento do cliente (YYYY-MM-DD)'
+  
+        response '200', 'Clientes encontrados' do
+          schema type: :array,
+                 items: { '$ref' => '#/components/schemas/cliente' }
+  
+          let(:data_nascimento) { '1980-01-01' }
           run_test!
         end
   
-        response(400, 'bad request') do
-          let(:cpf) { 'cpf_invalido' }
+        response '404', 'Nenhum cliente encontrado' do
+          let(:data_nascimento) { '1900-01-01' }
           run_test!
         end
       end
