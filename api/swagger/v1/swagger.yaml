@@ -100,21 +100,6 @@ paths:
                   type: string
               required:
               - nome
-    delete:
-      summary: Deletar uma Categoria
-      tags:
-      - Categorias
-      parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: integer
-      responses:
-        '204':
-          description: categoria deletada
-        '404':
-          description: categoria não encontrada
   "/pedidos":
     get:
       summary: Listar Pedidos

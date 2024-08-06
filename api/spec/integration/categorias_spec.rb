@@ -108,20 +108,6 @@ RSpec.describe 'Categorias API', type: :request do
         run_test!
       end
     end
-    
-    delete 'Deletar uma Categoria' do
-      tags 'Categorias'
-      parameter name: :id, in: :path, type: :integer
 
-      response '204', 'categoria deletada' do
-        let(:id) { Categoria.create!(nome: 'Lanches', descricao: 'Lanches variados').id }
-        run_test!
-      end
-
-      response '404', 'categoria não encontrada' do
-        let(:id) { 'invalid' }
-        run_test!
-      end
-    end
   end
 end
