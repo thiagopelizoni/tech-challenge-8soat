@@ -5,6 +5,7 @@ Tech Challenge do curso de [Pós-Graduação em Arquitetura de Software da FIAP]
 # DDD
 
 * [Diagramas Event Storm](https://miro.com/app/board/uXjVK0LIAuE=/)
+* [Dicionário de Linguagem Ubíqua](DICIONARIO.md)
 
 # Requisitos
 
