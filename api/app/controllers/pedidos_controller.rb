@@ -82,7 +82,7 @@ class PedidosController < ApplicationController
   end
 
   # GET /pedidos/pronto
-  def pronto
+  def prontos
     params[:status] = 'pronto'
     search
   end

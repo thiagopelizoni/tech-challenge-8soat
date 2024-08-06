@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   resources :pedidos do
     collection do
       get 'search', to: 'pedidos#search'
-      get 'pronto', to: 'pedidos#pronto'
+      get 'prontos', to: 'pedidos#prontos'
       get 'recebido', to: 'pedidos#recebido'
       get 'em-preparacao', to: 'pedidos#em_preparacao'
       get 'finalizado', to: 'pedidos#finalizado'

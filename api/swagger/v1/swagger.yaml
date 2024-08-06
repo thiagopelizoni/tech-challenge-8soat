@@ -393,7 +393,7 @@ paths:
           description: pedido em preparação
         '422':
           description: parâmetros inválidos
-  "/pedidos/pronto":
+  "/pedidos/prontos":
     get:
       summary: GET Pedidos Prontos
       parameters:
