@@ -10,17 +10,7 @@ RSpec.describe 'Categorias API', type: :request do
       
       response '200', 'categorias encontradas' do
         schema type: :array,
-               items: {
-                 type: :object,
-                 properties: {
-                   id: { type: :integer },
-                   nome: { type: :string },
-                   descricao: { type: :string },
-                   created_at: { type: :string, format: 'date-time' },
-                   updated_at: { type: :string, format: 'date-time' }
-                 },
-                 required: ['id', 'nome', 'descricao', 'created_at', 'updated_at']
-               }
+               items: { '$ref' => '#/components/schemas/categoria' }
         run_test!
       end
     end
@@ -38,15 +28,7 @@ RSpec.describe 'Categorias API', type: :request do
       }
 
       response '201', 'categoria criada' do
-        schema type: :object,
-               properties: {
-                 id: { type: :integer },
-                 nome: { type: :string },
-                 descricao: { type: :string },
-                 created_at: { type: :string, format: 'date-time' },
-                 updated_at: { type: :string, format: 'date-time' }
-               },
-               required: ['id', 'nome', 'descricao', 'created_at', 'updated_at']
+        schema '$ref' => '#/components/schemas/categoria'
 
         let(:categoria) { { nome: 'Lanches', descricao: 'Lanches variados' } }
         run_test!
@@ -74,15 +56,7 @@ RSpec.describe 'Categorias API', type: :request do
       parameter name: :id, in: :path, type: :integer
 
       response '200', 'categoria encontrada' do
-        schema type: :object,
-               properties: {
-                 id: { type: :integer },
-                 nome: { type: :string },
-                 descricao: { type: :string },
-                 created_at: { type: :string, format: 'date-time' },
-                 updated_at: { type: :string, format: 'date-time' }
-               },
-               required: ['id', 'nome', 'descricao', 'created_at', 'updated_at']
+        schema '$ref' => '#/components/schemas/categoria'
 
         let(:id) { Categoria.create!(nome: 'Lanches', descricao: 'Lanches variados').id }
         run_test!
@@ -108,15 +82,7 @@ RSpec.describe 'Categorias API', type: :request do
       }
 
       response '200', 'categoria atualizada' do
-        schema type: :object,
-               properties: {
-                 id: { type: :integer },
-                 nome: { type: :string },
-                 descricao: { type: :string },
-                 created_at: { type: :string, format: 'date-time' },
-                 updated_at: { type: :string, format: 'date-time' }
-               },
-               required: ['id', 'nome', 'descricao', 'created_at', 'updated_at']
+        schema '$ref' => '#/components/schemas/categoria'
 
         let(:id) { Categoria.create!(nome: 'Lanches', descricao: 'Lanches variados').id }
         let(:categoria) { { nome: 'Lanches Atualizados', descricao: 'Lanches diversos' } }
@@ -143,5 +109,19 @@ RSpec.describe 'Categorias API', type: :request do
       end
     end
     
+    delete 'Deletar uma Categoria' do
+      tags 'Categorias'
+      parameter name: :id, in: :path, type: :integer
+
+      response '204', 'categoria deletada' do
+        let(:id) { Categoria.create!(nome: 'Lanches', descricao: 'Lanches variados').id }
+        run_test!
+      end
+
+      response '404', 'categoria não encontrada' do
+        let(:id) { 'invalid' }
+        run_test!
+      end
+    end
   end
 end

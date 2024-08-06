@@ -35,6 +35,17 @@ RSpec.configure do |config|
               updated_at: { type: :string, format: :date_time }
             },
             required: %w[id nome descricao preco]
+          },
+          categoria: {
+            type: :object,
+            properties: {
+              id: { type: :integer },
+              nome: { type: :string },
+              descricao: { type: :string },
+              created_at: { type: :string, format: 'date-time' },
+              updated_at: { type: :string, format: 'date-time' }
+            },
+            required: %w[id nome descricao]
           }
         }
       }

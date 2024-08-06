@@ -28,26 +28,7 @@ paths:
               schema:
                 type: array
                 items:
-                  type: object
-                  properties:
-                    id:
-                      type: integer
-                    nome:
-                      type: string
-                    descricao:
-                      type: string
-                    created_at:
-                      type: string
-                      format: date-time
-                    updated_at:
-                      type: string
-                      format: date-time
-                  required:
-                  - id
-                  - nome
-                  - descricao
-                  - created_at
-                  - updated_at
+                  "$ref": "#/components/schemas/categoria"
     post:
       summary: Criar Categoria
       tags:
@@ -87,26 +68,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  id:
-                    type: integer
-                  nome:
-                    type: string
-                  descricao:
-                    type: string
-                  created_at:
-                    type: string
-                    format: date-time
-                  updated_at:
-                    type: string
-                    format: date-time
-                required:
-                - id
-                - nome
-                - descricao
-                - created_at
-                - updated_at
+                "$ref": "#/components/schemas/categoria"
         '404':
           description: categoria não encontrada
     put:
@@ -138,6 +100,21 @@ paths:
                   type: string
               required:
               - nome
+    delete:
+      summary: Deletar uma Categoria
+      tags:
+      - Categorias
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: categoria deletada
+        '404':
+          description: categoria não encontrada
   "/clientes":
     get:
       summary: Listar Clientes
@@ -1281,3 +1258,22 @@ components:
       - nome
       - descricao
       - preco
+    categoria:
+      type: object
+      properties:
+        id:
+          type: integer
+        nome:
+          type: string
+        descricao:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+      required:
+      - id
+      - nome
+      - descricao
