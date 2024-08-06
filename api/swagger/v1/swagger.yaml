@@ -115,251 +115,6 @@ paths:
           description: categoria deletada
         '404':
           description: categoria não encontrada
-  "/clientes":
-    get:
-      summary: Listar Clientes
-      tags:
-      - Clientes
-      responses:
-        '200':
-          description: clientes encontrados
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    id:
-                      type: integer
-                    nome:
-                      type: string
-                    data_nascimento:
-                      type: string
-                      format: date
-                    cpf:
-                      type: string
-                    email:
-                      type: string
-                    created_at:
-                      type: string
-                      format: date-time
-                    updated_at:
-                      type: string
-                      format: date-time
-                  required:
-                  - id
-                  - nome
-                  - data_nascimento
-                  - cpf
-                  - email
-    post:
-      summary: Cria um cliente
-      tags:
-      - Clientes
-      parameters: []
-      responses:
-        '201':
-          description: cliente criado
-        '422':
-          description: parâmetros inválidos
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                nome:
-                  type: string
-                data_nascimento:
-                  type: string
-                  format: date
-                cpf:
-                  type: string
-                email:
-                  type: string
-                senha:
-                  type: string
-              required:
-              - nome
-              - data_nascimento
-              - cpf
-              - email
-              - senha
-  "/clientes/{id}":
-    get:
-      summary: Busca um Cliente pelo seu ID
-      tags:
-      - Clientes
-      parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: string
-      responses:
-        '200':
-          description: cliente encontrado
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  id:
-                    type: integer
-                  nome:
-                    type: string
-                  data_nascimento:
-                    type: string
-                    format: date
-                  cpf:
-                    type: string
-                  email:
-                    type: string
-                  created_at:
-                    type: string
-                    format: date-time
-                  updated_at:
-                    type: string
-                    format: date-time
-                required:
-                - id
-                - nome
-                - data_nascimento
-                - cpf
-                - email
-        '404':
-          description: cliente não encontrado
-    put:
-      summary: Atualiza um cliente
-      tags:
-      - Clientes
-      parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: string
-      responses:
-        '200':
-          description: cliente atualizado
-        '422':
-          description: parâmetros inválidos
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                nome:
-                  type: string
-                data_nascimento:
-                  type: string
-                  format: date
-                cpf:
-                  type: string
-                email:
-                  type: string
-                senha:
-                  type: string
-              required:
-              - nome
-              - data_nascimento
-              - cpf
-              - email
-              - senha
-  "/clientes/nome/{nome}":
-    get:
-      summary: Busca clientes pelo Nome
-      tags:
-      - Clientes
-      parameters:
-      - name: nome
-        in: path
-        description: Nome do cliente
-        required: true
-        schema:
-          type: string
-      responses:
-        '200':
-          description: Clientes encontrados
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  "$ref": "#/components/schemas/cliente"
-        '404':
-          description: Nenhum cliente encontrado
-  "/clientes/email/{email}":
-    get:
-      summary: Busca clientes por email
-      tags:
-      - Clientes
-      parameters:
-      - name: email
-        in: path
-        description: Email do cliente
-        required: true
-        schema:
-          type: string
-      responses:
-        '200':
-          description: Clientes encontrados
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  "$ref": "#/components/schemas/cliente"
-        '404':
-          description: Nenhum cliente encontrado
-  "/clientes/cpf/{cpf}":
-    get:
-      summary: Busca um cliente pelo CPF
-      tags:
-      - Clientes
-      parameters:
-      - name: cpf
-        in: path
-        description: CPF do cliente
-        required: true
-        schema:
-          type: string
-      responses:
-        '200':
-          description: Clientes encontrados
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  "$ref": "#/components/schemas/cliente"
-        '404':
-          description: Nenhum cliente encontrado
-  "/clientes/data_nascimento/{data_nascimento}":
-    get:
-      summary: Busca clientes pela Data de Nascimento
-      tags:
-      - Clientes
-      parameters:
-      - name: data_nascimento
-        in: path
-        description: Data de nascimento do cliente (YYYY-MM-DD)
-        required: true
-        schema:
-          type: string
-      responses:
-        '200':
-          description: Clientes encontrados
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  "$ref": "#/components/schemas/cliente"
-        '404':
-          description: Nenhum cliente encontrado
   "/pedidos":
     get:
       summary: Listar Pedidos
@@ -1249,10 +1004,10 @@ components:
           type: number
         created_at:
           type: string
-          format: date_time
+          format: date-time
         updated_at:
           type: string
-          format: date_time
+          format: date-time
       required:
       - id
       - nome
@@ -1277,3 +1032,34 @@ components:
       - id
       - nome
       - descricao
+    cliente:
+      type: object
+      properties:
+        id:
+          type: integer
+        nome:
+          type: string
+        data_nascimento:
+          type: string
+          format: date
+        cpf:
+          type: string
+        email:
+          type: string
+        senha:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+      required:
+      - id
+      - nome
+      - data_nascimento
+      - cpf
+      - email
+      - senha
+      - created_at
+      - updated_at

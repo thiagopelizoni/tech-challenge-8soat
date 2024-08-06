@@ -15,42 +15,57 @@ RSpec.configure do |config|
   # document below. You can override this behavior by adding a openapi_spec tag to the
   # the root example_group in your specs, e.g. describe '...', openapi_spec: 'v2/swagger.json'
   config.openapi_specs = {
-    'v1/swagger.yaml' => {
-      openapi: '3.0.1',
-      info: {
-        title: 'API V1',
-        version: 'v1'
-      },
-      paths: {},
-      components: {
-        schemas: {
-          produto: {
-            type: :object,
-            properties: {
-              id: { type: :integer },
-              nome: { type: :string },
-              descricao: { type: :string },
-              preco: { type: :number },
-              created_at: { type: :string, format: :date_time },
-              updated_at: { type: :string, format: :date_time }
-            },
-            required: %w[id nome descricao preco]
+  'v1/swagger.yaml' => {
+    openapi: '3.0.1',
+    info: {
+      title: 'API V1',
+      version: 'v1'
+    },
+    paths: {},
+    components: {
+      schemas: {
+        produto: {
+          type: :object,
+          properties: {
+            id: { type: :integer },
+            nome: { type: :string },
+            descricao: { type: :string },
+            preco: { type: :number },
+            created_at: { type: :string, format: 'date-time' },
+            updated_at: { type: :string, format: 'date-time' }
           },
-          categoria: {
-            type: :object,
-            properties: {
-              id: { type: :integer },
-              nome: { type: :string },
-              descricao: { type: :string },
-              created_at: { type: :string, format: 'date-time' },
-              updated_at: { type: :string, format: 'date-time' }
-            },
-            required: %w[id nome descricao]
-          }
+          required: ['id', 'nome', 'descricao', 'preco']
+        },
+        categoria: {
+          type: :object,
+          properties: {
+            id: { type: :integer },
+            nome: { type: :string },
+            descricao: { type: :string },
+            created_at: { type: :string, format: 'date-time' },
+            updated_at: { type: :string, format: 'date-time' }
+          },
+          required: ['id', 'nome', 'descricao']
+        },
+        cliente: {
+          type: :object,
+          properties: {
+            id: { type: :integer },
+            nome: { type: :string },
+            data_nascimento: { type: :string, format: 'date' },
+            cpf: { type: :string },
+            email: { type: :string },
+            senha: { type: :string },
+            created_at: { type: :string, format: 'date-time' },
+            updated_at: { type: :string, format: 'date-time' }
+          },
+          required: ['id', 'nome', 'data_nascimento', 'cpf', 'email', 'senha', 'created_at', 'updated_at']
         }
       }
     }
   }
+}
+
 
   # Specify the format of the output Swagger file when running 'rswag:specs:swaggerize'.
   # The openapi_specs configuration option has the filename including format in
