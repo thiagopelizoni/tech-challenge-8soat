@@ -22,16 +22,22 @@ RSpec.configure do |config|
         version: 'v1'
       },
       paths: {},
-      servers: [
-        {
-          url: 'http://{defaultHost}',
-          variables: {
-            defaultHost: {
-              default: 'localhost:3000'
-            }
+      components: {
+        schemas: {
+          produto: {
+            type: :object,
+            properties: {
+              id: { type: :integer },
+              nome: { type: :string },
+              descricao: { type: :string },
+              preco: { type: :number },
+              created_at: { type: :string, format: :date_time },
+              updated_at: { type: :string, format: :date_time }
+            },
+            required: %w[id nome descricao preco]
           }
         }
-      ]
+      }
     }
   }
 
