@@ -8,7 +8,9 @@ RSpec.describe 'Pedidos API', type: :request do
       tags 'Pedidos'
       produces 'application/json'
       
-      response '200', 'pedidos found' do
+      response '200', 'pedidos encontrados' do
+        schema type: :array,
+               items: { '$ref' => '#/components/schemas/pedido' }
         run_test!
       end
     end
@@ -29,11 +31,19 @@ RSpec.describe 'Pedidos API', type: :request do
       }
   
       response '201', 'pedido criado' do
+        schema '$ref' => '#/components/schemas/pedido'
         let(:pedido) { { produtos: [1, 2], observacao: 'Sem cebola', pagamento: 'em_aberto', status: 'recebido' } }
         run_test!
       end
   
       response '422', 'parâmetros inválidos' do
+        schema type: :object,
+               properties: {
+                 errors: {
+                   type: :object,
+                   additionalProperties: { type: :array, items: { type: :string } }
+                 }
+               }
         let(:pedido) { { produtos: [], observacao: 'Observacao muito longa' * 100, pagamento: 'efetuado', status: 'invalido' } }
         run_test!
       end
@@ -41,29 +51,18 @@ RSpec.describe 'Pedidos API', type: :request do
   end
 
   path '/pedidos/{id}' do
-    get 'GET Pedido' do
+    get 'Exibir Pedido' do
       tags 'Pedidos'
       produces 'application/json'
       parameter name: :id, in: :path, type: :string
 
-      response '200', 'pedido found' do
-        schema type: :object,
-          properties: {
-            id: { type: :integer },
-            valor: { type: :number },
-            status: { type: :string,  enum: ['recebido', 'em_preparacao', 'pronto', 'finalizado'] },
-            observacao: { type: :string },
-            data: { type: :string, format: 'date' },
-            data_status: { type: :string, format: 'date' },
-            pagamento: { type: :string, enum: ['efetuado', 'em_aberto'] }
-          },
-          required: [ 'id', 'valor', 'status', 'observacao', 'data', 'data_status', 'pagamento' ]
-
+      response '200', 'pedido encontrado' do
+        schema '$ref' => '#/components/schemas/pedido'
         let(:id) { Pedido.create!(valor: 10.0, status: 'recebido', observacao: 'test', pagamento: 'em_aberto').id }
         run_test!
       end
 
-      response '404', 'pedido not found' do
+      response '404', 'pedido não encontrado' do
         let(:id) { 'invalid' }
         run_test!
       end
@@ -86,13 +85,21 @@ RSpec.describe 'Pedidos API', type: :request do
       }
   
       response '200', 'pedido atualizado' do
-        let(:id) { Pedido.create(produtos: [1, 2], observacao: 'Sem cebola', pagamento: 'em_aberto', status: 'recebido').id }
+        schema '$ref' => '#/components/schemas/pedido'
+        let(:id) { Pedido.create!(produtos: [1, 2], observacao: 'Sem cebola', pagamento: 'em_aberto', status: 'recebido').id }
         let(:pedido) { { produtos: [3, 4], observacao: 'Com molho', pagamento: 'efetuado', status: 'pronto' } }
         run_test!
       end
   
       response '422', 'parâmetros inválidos' do
-        let(:id) { Pedido.create(produtos: [1, 2], observacao: 'Sem cebola', pagamento: 'em_aberto', status: 'recebido').id }
+        schema type: :object,
+               properties: {
+                 errors: {
+                   type: :object,
+                   additionalProperties: { type: :array, items: { type: :string } }
+                 }
+               }
+        let(:id) { Pedido.create!(produtos: [1, 2], observacao: 'Sem cebola', pagamento: 'em_aberto', status: 'recebido').id }
         let(:pedido) { { produtos: [], observacao: 'Observacao muito longa' * 100, pagamento: 'efetuado', status: 'invalido' } }
         run_test!
       end
@@ -106,42 +113,9 @@ RSpec.describe 'Pedidos API', type: :request do
       tags 'Pedidos'
       produces 'application/json'
 
-      response '200', 'pedidos found' do
+      response '200', 'pedidos encontrados' do
         schema type: :array,
-               items: {
-                 type: :object,
-                 properties: {
-                   id: { type: :integer },
-                   valor: { type: :number },
-                   status: { type: :string },
-                   observacao: { type: :string },
-                   data: { type: :string, format: 'date' },
-                   data_status: { type: :string, format: 'date' },
-                   pagamento: { type: :string, enum: ['em_aberto'] },
-                   cliente: {
-                     type: :object,
-                     properties: {
-                       id: { type: :integer },
-                       nome: { type: :string },
-                       data_nascimento: { type: :string, format: 'date' },
-                       cpf: { type: :string },
-                       email: { type: :string }
-                     }
-                   },
-                   produtos: {
-                     type: :array,
-                     items: {
-                       type: :object,
-                       properties: {
-                         id: { type: :integer },
-                         nome: { type: :string },
-                         descricao: { type: :string },
-                         preco: { type: :number }
-                       }
-                     }
-                   }
-                 }
-               }
+               items: { '$ref' => '#/components/schemas/pedido' }
         run_test!
       end
     end
@@ -154,42 +128,9 @@ RSpec.describe 'Pedidos API', type: :request do
       tags 'Pedidos'
       produces 'application/json'
 
-      response '200', 'pedidos found' do
+      response '200', 'pedidos encontrados' do
         schema type: :array,
-               items: {
-                 type: :object,
-                 properties: {
-                   id: { type: :integer },
-                   valor: { type: :number },
-                   status: { type: :string,  enum: ['recebido', 'em_preparacao', 'pronto', 'finalizado'] },
-                   observacao: { type: :string },
-                   data: { type: :string, format: 'date' },
-                   data_status: { type: :string, format: 'date' },
-                   pagamento: { type: :string, enum: ['efetuado', 'em_aberto'] },
-                   cliente: {
-                     type: :object,
-                     properties: {
-                       id: { type: :integer },
-                       nome: { type: :string },
-                       data_nascimento: { type: :string, format: 'date' },
-                       cpf: { type: :string },
-                       email: { type: :string }
-                     }
-                   },
-                   produtos: {
-                     type: :array,
-                     items: {
-                       type: :object,
-                       properties: {
-                         id: { type: :integer },
-                         nome: { type: :string },
-                         descricao: { type: :string },
-                         preco: { type: :number }
-                       }
-                     }
-                   }
-                 }
-               }
+               items: { '$ref' => '#/components/schemas/pedido' }
         run_test!
       end
     end
@@ -220,42 +161,9 @@ RSpec.describe 'Pedidos API', type: :request do
       tags 'Pedidos'
       produces 'application/json'
 
-      response '200', 'pedidos found' do
+      response '200', 'pedidos encontrados' do
         schema type: :array,
-               items: {
-                 type: :object,
-                 properties: {
-                   id: { type: :integer },
-                   valor: { type: :number },
-                   status: { type: :string,  enum: ['recebido', 'em_preparacao', 'pronto', 'finalizado'] },
-                   observacao: { type: :string },
-                   data: { type: :string, format: 'date' },
-                   data_status: { type: :string, format: 'date' },
-                   pagamento: { type: :string, enum: ['efetuado', 'em_aberto'] },
-                   cliente: {
-                     type: :object,
-                     properties: {
-                       id: { type: :integer },
-                       nome: { type: :string },
-                       data_nascimento: { type: :string, format: 'date' },
-                       cpf: { type: :string },
-                       email: { type: :string }
-                     }
-                   },
-                   produtos: {
-                     type: :array,
-                     items: {
-                       type: :object,
-                       properties: {
-                         id: { type: :integer },
-                         nome: { type: :string },
-                         descricao: { type: :string },
-                         preco: { type: :number }
-                       }
-                     }
-                   }
-                 }
-               }
+               items: { '$ref' => '#/components/schemas/pedido' }
         run_test!
       end
     end
@@ -286,42 +194,9 @@ RSpec.describe 'Pedidos API', type: :request do
       tags 'Pedidos'
       produces 'application/json'
 
-      response '200', 'pedidos found' do
+      response '200', 'pedidos encontrados' do
         schema type: :array,
-               items: {
-                 type: :object,
-                 properties: {
-                   id: { type: :integer },
-                   valor: { type: :number },
-                   status: { type: :string,  enum: ['recebido', 'em_preparacao', 'pronto', 'finalizado'] },
-                   observacao: { type: :string },
-                   data: { type: :string, format: 'date' },
-                   data_status: { type: :string, format: 'date' },
-                   pagamento: { type: :string, enum: ['efetuado', 'em_aberto'] },
-                   cliente: {
-                     type: :object,
-                     properties: {
-                       id: { type: :integer },
-                       nome: { type: :string },
-                       data_nascimento: { type: :string, format: 'date' },
-                       cpf: { type: :string },
-                       email: { type: :string }
-                     }
-                   },
-                   produtos: {
-                     type: :array,
-                     items: {
-                       type: :object,
-                       properties: {
-                         id: { type: :integer },
-                         nome: { type: :string },
-                         descricao: { type: :string },
-                         preco: { type: :number }
-                       }
-                     }
-                   }
-                 }
-               }
+               items: { '$ref' => '#/components/schemas/pedido' }
         run_test!
       end
     end
@@ -352,42 +227,9 @@ RSpec.describe 'Pedidos API', type: :request do
       tags 'Pedidos'
       produces 'application/json'
 
-      response '200', 'pedidos found' do
+      response '200', 'pedidos encontrados' do
         schema type: :array,
-               items: {
-                 type: :object,
-                 properties: {
-                   id: { type: :integer },
-                   valor: { type: :number },
-                   status: { type: :string,  enum: ['recebido', 'em_preparacao', 'pronto', 'finalizado'] },
-                   observacao: { type: :string },
-                   data: { type: :string, format: 'date' },
-                   data_status: { type: :string, format: 'date' },
-                   pagamento: { type: :string, enum: ['efetuado', 'em_aberto'] },
-                   cliente: {
-                     type: :object,
-                     properties: {
-                       id: { type: :integer },
-                       nome: { type: :string },
-                       data_nascimento: { type: :string, format: 'date' },
-                       cpf: { type: :string },
-                       email: { type: :string }
-                     }
-                   },
-                   produtos: {
-                     type: :array,
-                     items: {
-                       type: :object,
-                       properties: {
-                         id: { type: :integer },
-                         nome: { type: :string },
-                         descricao: { type: :string },
-                         preco: { type: :number }
-                       }
-                     }
-                   }
-                 }
-               }
+               items: { '$ref' => '#/components/schemas/pedido' }
         run_test!
       end
     end
@@ -418,42 +260,9 @@ RSpec.describe 'Pedidos API', type: :request do
       tags 'Pedidos'
       produces 'application/json'
 
-      response '200', 'pedidos found' do
+      response '200', 'pedidos encontrados' do
         schema type: :array,
-               items: {
-                 type: :object,
-                 properties: {
-                   id: { type: :integer },
-                   valor: { type: :number },
-                   status: { type: :string,  enum: ['recebido', 'em_preparacao', 'pronto', 'finalizado'] },
-                   observacao: { type: :string },
-                   data: { type: :string, format: 'date' },
-                   data_status: { type: :string, format: 'date' },
-                   pagamento: { type: :string, enum: ['efetuado', 'em_aberto'] },
-                   cliente: {
-                     type: :object,
-                     properties: {
-                       id: { type: :integer },
-                       nome: { type: :string },
-                       data_nascimento: { type: :string, format: 'date' },
-                       cpf: { type: :string },
-                       email: { type: :string }
-                     }
-                   },
-                   produtos: {
-                     type: :array,
-                     items: {
-                       type: :object,
-                       properties: {
-                         id: { type: :integer },
-                         nome: { type: :string },
-                         descricao: { type: :string },
-                         preco: { type: :number }
-                       }
-                     }
-                   }
-                 }
-               }
+               items: { '$ref' => '#/components/schemas/pedido' }
         run_test!
       end
     end
@@ -476,5 +285,4 @@ RSpec.describe 'Pedidos API', type: :request do
       end
     end
   end
-
 end

@@ -60,6 +60,24 @@ RSpec.configure do |config|
             updated_at: { type: :string, format: 'date-time' }
           },
           required: ['id', 'nome', 'data_nascimento', 'cpf', 'email', 'senha', 'created_at', 'updated_at']
+        },
+        pedido: {
+          type: :object,
+          properties: {
+            id: { type: :integer },
+            valor: { type: :number },
+            status: { type: :string, enum: ['recebido', 'em_preparacao', 'pronto', 'finalizado'] },
+            observacao: { type: :string, nullable: true },
+            data: { type: :string, format: 'date-time' },
+            data_status: { type: :string, format: 'date-time' },
+            pagamento: { type: :string, enum: ['efetuado', 'em_aberto'] },
+            cliente: { '$ref' => '#/components/schemas/cliente' },
+            produtos: {
+              type: :array,
+              items: { '$ref' => '#/components/schemas/produto' }
+            }
+          },
+          required: ['id', 'valor', 'status', 'data', 'data_status', 'pagamento', 'cliente', 'produtos']
         }
       }
     }

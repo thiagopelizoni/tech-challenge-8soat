@@ -133,7 +133,13 @@ paths:
       - Pedidos
       responses:
         '200':
-          description: pedidos found
+          description: pedidos encontrados
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/pedido"
     post:
       summary: Criação de Pedido
       tags:
@@ -176,7 +182,7 @@ paths:
               - produtos
   "/pedidos/{id}":
     get:
-      summary: GET Pedido
+      summary: Exibir Pedido
       tags:
       - Pedidos
       parameters:
@@ -187,46 +193,13 @@ paths:
           type: string
       responses:
         '200':
-          description: pedido found
+          description: pedido encontrado
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  id:
-                    type: integer
-                  valor:
-                    type: number
-                  status:
-                    type: string
-                    enum:
-                    - recebido
-                    - em_preparacao
-                    - pronto
-                    - finalizado
-                  observacao:
-                    type: string
-                  data:
-                    type: string
-                    format: date
-                  data_status:
-                    type: string
-                    format: date
-                  pagamento:
-                    type: string
-                    enum:
-                    - efetuado
-                    - em_aberto
-                required:
-                - id
-                - valor
-                - status
-                - observacao
-                - data
-                - data_status
-                - pagamento
+                "$ref": "#/components/schemas/pedido"
         '404':
-          description: pedido not found
+          description: pedido não encontrado
     put:
       summary: Atualização de Pedido
       tags:
@@ -290,59 +263,13 @@ paths:
       - Pedidos
       responses:
         '200':
-          description: pedidos found
+          description: pedidos encontrados
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  type: object
-                  properties:
-                    id:
-                      type: integer
-                    valor:
-                      type: number
-                    status:
-                      type: string
-                    observacao:
-                      type: string
-                    data:
-                      type: string
-                      format: date
-                    data_status:
-                      type: string
-                      format: date
-                    pagamento:
-                      type: string
-                      enum:
-                      - em_aberto
-                    cliente:
-                      type: object
-                      properties:
-                        id:
-                          type: integer
-                        nome:
-                          type: string
-                        data_nascimento:
-                          type: string
-                          format: date
-                        cpf:
-                          type: string
-                        email:
-                          type: string
-                    produtos:
-                      type: array
-                      items:
-                        type: object
-                        properties:
-                          id:
-                            type: integer
-                          nome:
-                            type: string
-                          descricao:
-                            type: string
-                          preco:
-                            type: number
+                  "$ref": "#/components/schemas/pedido"
   "/pedidos/pago":
     parameters:
     - name: page
@@ -361,65 +288,13 @@ paths:
       - Pedidos
       responses:
         '200':
-          description: pedidos found
+          description: pedidos encontrados
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  type: object
-                  properties:
-                    id:
-                      type: integer
-                    valor:
-                      type: number
-                    status:
-                      type: string
-                      enum:
-                      - recebido
-                      - em_preparacao
-                      - pronto
-                      - finalizado
-                    observacao:
-                      type: string
-                    data:
-                      type: string
-                      format: date
-                    data_status:
-                      type: string
-                      format: date
-                    pagamento:
-                      type: string
-                      enum:
-                      - efetuado
-                      - em_aberto
-                    cliente:
-                      type: object
-                      properties:
-                        id:
-                          type: integer
-                        nome:
-                          type: string
-                        data_nascimento:
-                          type: string
-                          format: date
-                        cpf:
-                          type: string
-                        email:
-                          type: string
-                    produtos:
-                      type: array
-                      items:
-                        type: object
-                        properties:
-                          id:
-                            type: integer
-                          nome:
-                            type: string
-                          descricao:
-                            type: string
-                          preco:
-                            type: number
+                  "$ref": "#/components/schemas/pedido"
   "/pedidos/{id}/pagar":
     put:
       summary: Atualiza o pagamento do pedido para "Efetuado"
@@ -454,65 +329,13 @@ paths:
       - Pedidos
       responses:
         '200':
-          description: pedidos found
+          description: pedidos encontrados
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  type: object
-                  properties:
-                    id:
-                      type: integer
-                    valor:
-                      type: number
-                    status:
-                      type: string
-                      enum:
-                      - recebido
-                      - em_preparacao
-                      - pronto
-                      - finalizado
-                    observacao:
-                      type: string
-                    data:
-                      type: string
-                      format: date
-                    data_status:
-                      type: string
-                      format: date
-                    pagamento:
-                      type: string
-                      enum:
-                      - efetuado
-                      - em_aberto
-                    cliente:
-                      type: object
-                      properties:
-                        id:
-                          type: integer
-                        nome:
-                          type: string
-                        data_nascimento:
-                          type: string
-                          format: date
-                        cpf:
-                          type: string
-                        email:
-                          type: string
-                    produtos:
-                      type: array
-                      items:
-                        type: object
-                        properties:
-                          id:
-                            type: integer
-                          nome:
-                            type: string
-                          descricao:
-                            type: string
-                          preco:
-                            type: number
+                  "$ref": "#/components/schemas/pedido"
   "/pedidos/{id}/receber":
     put:
       summary: Atualiza o status do pedido para "Recebido"
@@ -547,65 +370,13 @@ paths:
       - Pedidos
       responses:
         '200':
-          description: pedidos found
+          description: pedidos encontrados
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  type: object
-                  properties:
-                    id:
-                      type: integer
-                    valor:
-                      type: number
-                    status:
-                      type: string
-                      enum:
-                      - recebido
-                      - em_preparacao
-                      - pronto
-                      - finalizado
-                    observacao:
-                      type: string
-                    data:
-                      type: string
-                      format: date
-                    data_status:
-                      type: string
-                      format: date
-                    pagamento:
-                      type: string
-                      enum:
-                      - efetuado
-                      - em_aberto
-                    cliente:
-                      type: object
-                      properties:
-                        id:
-                          type: integer
-                        nome:
-                          type: string
-                        data_nascimento:
-                          type: string
-                          format: date
-                        cpf:
-                          type: string
-                        email:
-                          type: string
-                    produtos:
-                      type: array
-                      items:
-                        type: object
-                        properties:
-                          id:
-                            type: integer
-                          nome:
-                            type: string
-                          descricao:
-                            type: string
-                          preco:
-                            type: number
+                  "$ref": "#/components/schemas/pedido"
   "/pedidos/{id}/preparar":
     put:
       summary: Atualiza o status do pedido para "Em Preparação"
@@ -640,65 +411,13 @@ paths:
       - Pedidos
       responses:
         '200':
-          description: pedidos found
+          description: pedidos encontrados
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  type: object
-                  properties:
-                    id:
-                      type: integer
-                    valor:
-                      type: number
-                    status:
-                      type: string
-                      enum:
-                      - recebido
-                      - em_preparacao
-                      - pronto
-                      - finalizado
-                    observacao:
-                      type: string
-                    data:
-                      type: string
-                      format: date
-                    data_status:
-                      type: string
-                      format: date
-                    pagamento:
-                      type: string
-                      enum:
-                      - efetuado
-                      - em_aberto
-                    cliente:
-                      type: object
-                      properties:
-                        id:
-                          type: integer
-                        nome:
-                          type: string
-                        data_nascimento:
-                          type: string
-                          format: date
-                        cpf:
-                          type: string
-                        email:
-                          type: string
-                    produtos:
-                      type: array
-                      items:
-                        type: object
-                        properties:
-                          id:
-                            type: integer
-                          nome:
-                            type: string
-                          descricao:
-                            type: string
-                          preco:
-                            type: number
+                  "$ref": "#/components/schemas/pedido"
   "/pedidos/{id}/pronto":
     put:
       summary: Atualiza o status do pedido para "Pronto"
@@ -733,65 +452,13 @@ paths:
       - Pedidos
       responses:
         '200':
-          description: pedidos found
+          description: pedidos encontrados
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  type: object
-                  properties:
-                    id:
-                      type: integer
-                    valor:
-                      type: number
-                    status:
-                      type: string
-                      enum:
-                      - recebido
-                      - em_preparacao
-                      - pronto
-                      - finalizado
-                    observacao:
-                      type: string
-                    data:
-                      type: string
-                      format: date
-                    data_status:
-                      type: string
-                      format: date
-                    pagamento:
-                      type: string
-                      enum:
-                      - efetuado
-                      - em_aberto
-                    cliente:
-                      type: object
-                      properties:
-                        id:
-                          type: integer
-                        nome:
-                          type: string
-                        data_nascimento:
-                          type: string
-                          format: date
-                        cpf:
-                          type: string
-                        email:
-                          type: string
-                    produtos:
-                      type: array
-                      items:
-                        type: object
-                        properties:
-                          id:
-                            type: integer
-                          nome:
-                            type: string
-                          descricao:
-                            type: string
-                          preco:
-                            type: number
+                  "$ref": "#/components/schemas/pedido"
   "/pedidos/{id}/finalizar":
     put:
       summary: Atualiza o status do pedido para "Finalizado"
@@ -1063,3 +730,46 @@ components:
       - senha
       - created_at
       - updated_at
+    pedido:
+      type: object
+      properties:
+        id:
+          type: integer
+        valor:
+          type: number
+        status:
+          type: string
+          enum:
+          - recebido
+          - em_preparacao
+          - pronto
+          - finalizado
+        observacao:
+          type: string
+          nullable: true
+        data:
+          type: string
+          format: date-time
+        data_status:
+          type: string
+          format: date-time
+        pagamento:
+          type: string
+          enum:
+          - efetuado
+          - em_aberto
+        cliente:
+          "$ref": "#/components/schemas/cliente"
+        produtos:
+          type: array
+          items:
+            "$ref": "#/components/schemas/produto"
+      required:
+      - id
+      - valor
+      - status
+      - data
+      - data_status
+      - pagamento
+      - cliente
+      - produtos
