@@ -32,9 +32,7 @@ A aplicação estará disponível em http://localhost:3000/.
 
 Lista de requisitos que a API deve contemplar nesta fase.
 
-### Pedido
-
-* Checkout retornando a identificação do mesmo:
+###  Checkout retornando a identificação do mesmo:
 
 ```
 curl -X 'POST' \
@@ -49,14 +47,8 @@ curl -X 'POST' \
 }'
 ```
 
-* Consultar status pagamento pedido, informando se o pagamento foi aprovado ou não.
+### Consultar o status do pagamento dos pedidos
 
-Para este caso, encontram-se implementadas as opções abaixo:
-
-#### Pedidos com pagamento não confirmado
-
-* GET /pedidos/em-aberto
-
-#### Pedidos com pagamento confirmado
-
-* GET /pedidos/pago
+* GET /pedidos/pagamento-em-aberto
+* GET /pedidos/pagamento-confirmado
+* GET /pedidos/pagamento-recusado
