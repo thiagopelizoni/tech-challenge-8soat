@@ -2,11 +2,6 @@
 
 Tech Challenge do curso de [Pós-Graduação em Arquitetura de Software da FIAP](https://postech.fiap.com.br/curso/software-architecture/).
 
-# DDD
-
-* [Diagramas Event Storm](https://miro.com/app/board/uXjVK0LIAuE=/)
-* [Dicionário de Linguagem Ubíqua](DICIONARIO.md)
-
 # Requisitos
 
 * [Docker](https://docs.docker.com/engine/install/)
@@ -20,6 +15,38 @@ docker-compose up --build -d
 
 A aplicação estará disponível em http://localhost:3000/.
 
-# Swagger
+# Fase 1
+
+## DDD
+
+* [Diagramas Event Storm](https://miro.com/app/board/uXjVK0LIAuE=/)
+* [Dicionário de Linguagem Ubíqua](DICIONARIO.md)
+
+## Swagger
 
 * http://localhost:3000/api-docs
+
+# Fase 2
+
+## API
+
+Lista de requisitos que a API deve contemplar nesta fase.
+
+### Pedido
+
+* Checkout retornando a identificação do mesmo:
+
+```
+curl -X 'POST' \
+  'http://localhost:3000/pedidos' \
+  -H 'accept: */*' \
+  -H 'Content-Type: application/json' \
+  -d '{
+"valor": "75.0",
+"status": "pronto",
+"observacao": "Observação do pedido",
+"pagamento": "efetuado",
+"cliente_id": 4,
+"produtos": [3, 7, 2, 15, 13, 23, 22]
+}'
+```
