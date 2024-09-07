@@ -43,9 +43,7 @@ curl -X 'POST' \
   -H 'Content-Type: application/json' \
   -d '{
 "valor": "75.0",
-"status": "pronto",
-"observacao": "Observação do pedido",
-"pagamento": "efetuado",
+"pagamento": "em_aberto",
 "cliente_id": 4,
 "produtos": [3, 7, 2, 15, 13, 23, 22]
 }'
