@@ -48,3 +48,15 @@ curl -X 'POST' \
 "produtos": [3, 7, 2, 15, 13, 23, 22]
 }'
 ```
+
+* Consultar status pagamento pedido, informando se o pagamento foi aprovado ou não.
+
+Para este caso, encontram-se implementadas as opções abaixo:
+
+#### Pedidos com pagamento não confirmado
+
+* GET /pedidos/em-aberto
+
+#### Pedidos com pagamento confirmado
+
+* GET /pedidos/pago
