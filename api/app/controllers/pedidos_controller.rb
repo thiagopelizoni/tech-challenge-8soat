@@ -69,15 +69,21 @@ class PedidosController < ApplicationController
     render json: pedidos, each_serializer: PedidoSerializer
   end
 
-  # GET /pedidos/pago
-  def pago
-    params[:pagamento] = 'efetuado'
+  # GET /pedidos/pagamento-confirmado
+  def pagamento_confirmado
+    params[:pagamento] = 'confirmado'
     search
   end
 
-  # GET /pedidos/em-aberto
-  def em_aberto
+  # GET /pedidos/pagamento-em-aberto
+  def pagamento_em_aberto
     params[:pagamento] = 'em_aberto'
+    search
+  end
+
+  # GET /pedidos/pagamento-recusado
+  def pagamento_recusado
+    params[:pagamento] = 'recusado'
     search
   end
 
@@ -107,7 +113,7 @@ class PedidosController < ApplicationController
 
   # PUT /pedidos/:id/pagar
   def pagar
-    if @pedido.update(pagamento: 'efetuado', status: 'recebido')
+    if @pedido.update(pagamento: 'confirmado', status: 'recebido')
       render json: @pedido, status: :ok
     else
       render json: @pedido.errors, status: :unprocessable_entity

@@ -24,7 +24,7 @@ RSpec.describe 'Pedidos API', type: :request do
           cliente_id: { type: :integer, nullable: true },
           produtos: { type: :array, items: { type: :integer } },
           observacao: { type: :string, nullable: true },
-          pagamento: { type: :string, enum: ['efetuado', 'em_aberto'] },
+          pagamento: { type: :string, enum: ['confirmado', 'em_aberto'] },
           status: { type: :string, enum: ['recebido', 'em_preparacao', 'pronto', 'finalizado'] }
         },
         required: ['produtos']
@@ -44,7 +44,7 @@ RSpec.describe 'Pedidos API', type: :request do
                    additionalProperties: { type: :array, items: { type: :string } }
                  }
                }
-        let(:pedido) { { produtos: [], observacao: 'Observacao muito longa' * 100, pagamento: 'efetuado', status: 'invalido' } }
+        let(:pedido) { { produtos: [], observacao: 'Observacao muito longa' * 100, pagamento: 'confirmado', status: 'invalido' } }
         run_test!
       end
     end
@@ -78,7 +78,7 @@ RSpec.describe 'Pedidos API', type: :request do
           cliente_id: { type: :integer, nullable: true },
           produtos: { type: :array, items: { type: :integer } },
           observacao: { type: :string, nullable: true },
-          pagamento: { type: :string, enum: ['efetuado', 'em_aberto'] },
+          pagamento: { type: :string, enum: ['confirmado', 'em_aberto'] },
           status: { type: :string, enum: ['recebido', 'em_preparacao', 'pronto', 'finalizado'] }
         },
         required: ['produtos']
@@ -87,7 +87,7 @@ RSpec.describe 'Pedidos API', type: :request do
       response '200', 'pedido atualizado' do
         schema '$ref' => '#/components/schemas/pedido'
         let(:id) { Pedido.create!(produtos: [1, 2], observacao: 'Sem cebola', pagamento: 'em_aberto', status: 'recebido').id }
-        let(:pedido) { { produtos: [3, 4], observacao: 'Com molho', pagamento: 'efetuado', status: 'pronto' } }
+        let(:pedido) { { produtos: [3, 4], observacao: 'Com molho', pagamento: 'confirmado', status: 'pronto' } }
         run_test!
       end
   
@@ -100,13 +100,13 @@ RSpec.describe 'Pedidos API', type: :request do
                  }
                }
         let(:id) { Pedido.create!(produtos: [1, 2], observacao: 'Sem cebola', pagamento: 'em_aberto', status: 'recebido').id }
-        let(:pedido) { { produtos: [], observacao: 'Observacao muito longa' * 100, pagamento: 'efetuado', status: 'invalido' } }
+        let(:pedido) { { produtos: [], observacao: 'Observacao muito longa' * 100, pagamento: 'confirmado', status: 'invalido' } }
         run_test!
       end
     end
   end
 
-  path '/pedidos/em-aberto' do
+  path '/pedidos/pagamento-em-aberto' do
     get 'GET Pedidos sem Pagamento confirmado' do
       parameter name: :page, in: :query, type: :integer, description: 'Número da página'
       parameter name: :per_page, in: :query, type: :integer, description: 'Número de itens por página'
@@ -121,10 +121,25 @@ RSpec.describe 'Pedidos API', type: :request do
     end
   end
 
-  path '/pedidos/pago' do
+  path '/pedidos/pagamento-confirmado' do
     parameter name: :page, in: :query, type: :integer, description: 'Número da página'
     parameter name: :per_page, in: :query, type: :integer, description: 'Número de itens por página'
-    get 'GET Pedidos Pagos' do
+    get 'GET Pedidos com Pagamentos Confirmados' do
+      tags 'Pedidos'
+      produces 'application/json'
+
+      response '200', 'pedidos encontrados' do
+        schema type: :array,
+               items: { '$ref' => '#/components/schemas/pedido' }
+        run_test!
+      end
+    end
+  end
+
+  path '/pedidos/pagamento-recusado' do
+    parameter name: :page, in: :query, type: :integer, description: 'Número da página'
+    parameter name: :per_page, in: :query, type: :integer, description: 'Número de itens por página'
+    get 'GET Pedidos com Pagamento Recusado' do
       tags 'Pedidos'
       produces 'application/json'
 
@@ -137,12 +152,12 @@ RSpec.describe 'Pedidos API', type: :request do
   end
 
   path '/pedidos/{id}/pagar' do
-    put 'Atualiza o pagamento do pedido para "Efetuado"' do
+    put 'Atualiza o pagamento do pedido para "confirmado"' do
       tags 'Pedidos'
       parameter name: :id, in: :path, type: :integer
 
-      response '200', 'pagamento efetuado' do
-        let(:pedido) { create(:pedido, pagamento: 'em_aberto') }
+      response '200', 'pagamento confirmado' do
+        let(:pedido) { create(:pedido, pagamento: 'confirmado') }
         let(:id) { pedido.id }
         run_test!
       end

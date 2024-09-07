@@ -141,13 +141,17 @@ clientes = Cliente.all
     observacao: nil,
   )
 
-  p = Pedido.create(
+  Pedido.create!(
     cliente: clientes.sample,
     produtos: produtos,
     status: status_options.sample,
-    observacao: "Observação do pedido"
+    pagamento: 'confirmado',
   )
 
-  p.pagamento = 'efetuado'
-  p.save!
+  Pedido.create!(
+    cliente: clientes.sample,
+    produtos: produtos,
+    status: nil,
+    pagamento: 'recusado',
+  )
 end

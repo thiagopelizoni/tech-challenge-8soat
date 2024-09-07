@@ -154,7 +154,7 @@ paths:
                 pagamento:
                   type: string
                   enum:
-                  - efetuado
+                  - confirmado
                   - em_aberto
                 status:
                   type: string
@@ -219,7 +219,7 @@ paths:
                 pagamento:
                   type: string
                   enum:
-                  - efetuado
+                  - confirmado
                   - em_aberto
                 status:
                   type: string
@@ -230,7 +230,7 @@ paths:
                   - finalizado
               required:
               - produtos
-  "/pedidos/em-aberto":
+  "/pedidos/pagamento-em-aberto":
     get:
       summary: GET Pedidos sem Pagamento confirmado
       parameters:
@@ -255,7 +255,7 @@ paths:
                 type: array
                 items:
                   "$ref": "#/components/schemas/pedido"
-  "/pedidos/pago":
+  "/pedidos/pagamento-confirmado":
     parameters:
     - name: page
       in: query
@@ -268,7 +268,32 @@ paths:
       schema:
         type: integer
     get:
-      summary: GET Pedidos Pagos
+      summary: GET Pedidos com Pagamentos Confirmados
+      tags:
+      - Pedidos
+      responses:
+        '200':
+          description: pedidos encontrados
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/pedido"
+  "/pedidos/pagamento-recusado":
+    parameters:
+    - name: page
+      in: query
+      description: Número da página
+      schema:
+        type: integer
+    - name: per_page
+      in: query
+      description: Número de itens por página
+      schema:
+        type: integer
+    get:
+      summary: GET Pedidos com Pagamento Recusado
       tags:
       - Pedidos
       responses:
@@ -282,7 +307,7 @@ paths:
                   "$ref": "#/components/schemas/pedido"
   "/pedidos/{id}/pagar":
     put:
-      summary: Atualiza o pagamento do pedido para "Efetuado"
+      summary: Atualiza o pagamento do pedido para "confirmado"
       tags:
       - Pedidos
       parameters:
@@ -293,7 +318,7 @@ paths:
           type: integer
       responses:
         '200':
-          description: pagamento efetuado
+          description: pagamento confirmado
         '422':
           description: parâmetros inválidos
   "/pedidos/recebido":

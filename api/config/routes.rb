@@ -10,8 +10,9 @@ Rails.application.routes.draw do
       get 'recebido', to: 'pedidos#recebido'
       get 'em-preparacao', to: 'pedidos#em_preparacao'
       get 'finalizado', to: 'pedidos#finalizado'
-      get 'pago', to: 'pedidos#pago'
-      get 'em-aberto', to: 'pedidos#em_aberto'
+      get 'pagamento-confirmado', to: 'pedidos#pagamento_confirmado'
+      get 'pagamento-em-aberto', to: 'pedidos#pagamento_em_aberto'
+      get 'pagamento-recusado', to: 'pedidos#pagamento_recusado'
     end
 
     member do

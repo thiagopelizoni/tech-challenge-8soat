@@ -2,12 +2,12 @@ class Pedido < ApplicationRecord
   belongs_to :cliente, optional: true
 
   before_save :calculate_valor
-  before_create :set_pagamento_em_aberto
+  #before_create :set_pagamento_em_aberto
 
-  enum pagamento: { efetuado: 'efetuado', em_aberto: 'em_aberto' }
+  enum pagamento: { em_aberto: 'em_aberto', confirmado: 'confirmado', recusado: 'recusado' }
   enum status: { recebido: 'recebido', em_preparacao: 'em_preparacao', pronto: 'pronto', finalizado: 'finalizado' }
 
-  validates :status, inclusion: { in: statuses.keys }, if: -> { pagamento == 'efetuado' }
+  validates :status, inclusion: { in: statuses.keys }, if: -> { pagamento == 'confirmado' }
   validates :produtos, presence: true
   validates :observacao, length: { maximum: 500 }
   validate :status_presence_based_on_pagamento
@@ -27,19 +27,19 @@ class Pedido < ApplicationRecord
   end
 
   def validate_status_change
-    if status_changed? && pagamento != 'efetuado'
-      errors.add(:status, 'Status não pode ser alterado a menos que o Pagamento esteja como Efetuado')
+    if status_changed? && pagamento != 'confirmado'
+      errors.add(:status, 'Status não pode ser alterado a menos que o Pagamento esteja como confirmado')
       throw :abort
     end
   end
 
   def status_presence_based_on_pagamento
-    if pagamento == 'em_aberto' && status.present?
+    if ['em_aberto', 'recusado'].include?(pagamento) && status.present?
       errors.add(:status, 'Não se pode atribuir Status se o Pagamento estiver Em Aberto')
     end
 
-    if pagamento == 'efetuado' && status.blank?
-      errors.add(:status, 'Status é obrigatório quando o Pagamento já tiver sido Efetuado')
+    if pagamento == 'confirmado' && status.blank?
+      errors.add(:status, 'Status é obrigatório quando o Pagamento já tiver sido confirmado')
     end
   end
 end
