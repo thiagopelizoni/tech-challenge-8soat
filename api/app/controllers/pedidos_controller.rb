@@ -1,5 +1,5 @@
 class PedidosController < ApplicationController
-  before_action :set_pedido, only: %i[ show update destroy ]
+  before_action :set_pedido, only: %i[ show update destroy pagar preparar receber pronto finalizar ]
 
   # GET /pedidos
   def index
@@ -107,7 +107,7 @@ class PedidosController < ApplicationController
 
   # PUT /pedidos/:id/pagar
   def pagar
-    if @pedido.update(pagamento: 'efetuado')
+    if @pedido.update(pagamento: 'efetuado', status: 'recebido')
       render json: @pedido, status: :ok
     else
       render json: @pedido.errors, status: :unprocessable_entity
