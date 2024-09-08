@@ -63,3 +63,40 @@ curl -X 'POST' \
 * GET /pedidos/em-preparacao
 * GET /pedidos/recebidos
 * GET /pedidos/finalizados
+
+### Atualizar o status do Pedido
+
+* PUT /pedidos/:id
+
+```
+curl -X 'PUT' \
+  'http://localhost:3000/pedidos/298' \
+  -H 'accept: */*' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "status": "em_preparacao"
+}'
+```
+
+* PUT /pedidos/:id/receber
+
+``
+curl -X 'PUT' 'http://localhost:3000/pedidos/298/receber' -H 'accept: */*'
+``
+* PUT /pedidos/:id/preparar
+
+``
+curl -X 'PUT' 'http://localhost:3000/pedidos/298/preparar' -H 'accept: */*'
+``
+
+* PUT /pedidos/:id/pronto
+
+``
+curl -X 'PUT' 'http://localhost:3000/pedidos/298/pronto' -H 'accept: */*'
+``
+
+* PUT /pedidos/:id/finalizar
+
+``
+curl -X 'PUT' 'http://localhost:3000/pedidos/298/finalizar' -H 'accept: */*'
+``
