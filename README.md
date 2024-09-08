@@ -52,3 +52,14 @@ curl -X 'POST' \
 * GET /pedidos/pagamento-em-aberto
 * GET /pedidos/pagamento-confirmado
 * GET /pedidos/pagamento-recusado
+
+### Webhook para receber confirmação de pagamento
+
+@ToDo
+
+### Lista de Pedidos
+
+* GET /pedidos/prontos
+* GET /pedidos/em-preparacao
+* GET /pedidos/recebidos
+* GET /pedidos/finalizados

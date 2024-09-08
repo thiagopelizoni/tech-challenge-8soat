@@ -7,9 +7,9 @@ Rails.application.routes.draw do
     collection do
       get 'search', to: 'pedidos#search'
       get 'prontos', to: 'pedidos#prontos'
-      get 'recebido', to: 'pedidos#recebido'
+      get 'recebidos', to: 'pedidos#recebidos'
       get 'em-preparacao', to: 'pedidos#em_preparacao'
-      get 'finalizado', to: 'pedidos#finalizado'
+      get 'finalizados', to: 'pedidos#finalizados'
       get 'pagamento-confirmado', to: 'pedidos#pagamento_confirmado'
       get 'pagamento-em-aberto', to: 'pedidos#pagamento_em_aberto'
       get 'pagamento-recusado', to: 'pedidos#pagamento_recusado'

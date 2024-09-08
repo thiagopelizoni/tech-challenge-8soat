@@ -87,14 +87,14 @@ class PedidosController < ApplicationController
     search
   end
 
-  # GET /pedidos/pronto
+  # GET /pedidos/prontos
   def prontos
     params[:status] = 'pronto'
     search
   end
 
-  # GET /pedidos/recebido
-  def recebido
+  # GET /pedidos/recebidos
+  def recebidos
     params[:status] = 'recebido'
     search
   end
@@ -105,8 +105,8 @@ class PedidosController < ApplicationController
     search
   end
 
-  # GET /pedidos/finalizado
-  def finalizado
+  # GET /pedidos/finalizados
+  def finalizados
     params[:status] = 'finalizado'
     search
   end

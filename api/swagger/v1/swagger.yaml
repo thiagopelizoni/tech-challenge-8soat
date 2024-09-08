@@ -321,7 +321,7 @@ paths:
           description: pagamento confirmado
         '422':
           description: parâmetros inválidos
-  "/pedidos/recebido":
+  "/pedidos/recebidos":
     parameters:
     - name: page
       in: query
@@ -444,7 +444,7 @@ paths:
           description: pedido pronto
         '422':
           description: parâmetros inválidos
-  "/pedidos/finalizado":
+  "/pedidos/finalizados":
     get:
       summary: GET Pedidos Finalizados
       parameters:

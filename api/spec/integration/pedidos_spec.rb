@@ -169,7 +169,7 @@ RSpec.describe 'Pedidos API', type: :request do
     end
   end
 
-  path '/pedidos/recebido' do
+  path '/pedidos/recebidos' do
     parameter name: :page, in: :query, type: :integer, description: 'Número da página'
     parameter name: :per_page, in: :query, type: :integer, description: 'Número de itens por página'
     get 'GET Pedidos Recebidos' do
@@ -268,7 +268,7 @@ RSpec.describe 'Pedidos API', type: :request do
     end
   end
 
-  path '/pedidos/finalizado' do
+  path '/pedidos/finalizados' do
     get 'GET Pedidos Finalizados' do
       parameter name: :page, in: :query, type: :integer, description: 'Número da página'
       parameter name: :per_page, in: :query, type: :integer, description: 'Número de itens por página'
