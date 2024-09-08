@@ -14,8 +14,6 @@ class Pedido < ApplicationRecord
 
   before_update :validate_status_change
 
-  default_scope { order(updated_at: :desc) }
-
   private
 
   def calculate_valor
