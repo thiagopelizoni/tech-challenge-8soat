@@ -32,7 +32,9 @@ A aplicação estará disponível em http://localhost:3000/.
 
 Lista de requisitos que a API deve contemplar nesta fase.
 
-###  Checkout retornando a identificação do mesmo:
+###  Checkout retornando a identificação do mesmo
+
+* POST /pedidos
 
 ```
 curl -X 'POST' \
