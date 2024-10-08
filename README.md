@@ -105,6 +105,10 @@ curl -X 'PUT' 'http://localhost:3000/pedidos/298/finalizar' -H 'accept: */*'
 
 # Kubernetes
 
+# Requisitos
+
+* [Minikube](https://k8s-docs.netlify.app/en/docs/tasks/tools/install-minikube/)
+
 ```
 bash kubernetes.sh
 ```
