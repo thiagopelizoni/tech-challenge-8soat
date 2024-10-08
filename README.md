@@ -102,3 +102,15 @@ curl -X 'PUT' 'http://localhost:3000/pedidos/298/pronto' -H 'accept: */*'
 ``
 curl -X 'PUT' 'http://localhost:3000/pedidos/298/finalizar' -H 'accept: */*'
 ``
+
+# Kubernetes
+
+```
+bash kubernetes.sh
+```
+
+Para conferir se tudo está correto, basta executar os comandos abaixo:
+
+```
+kubectl get all
+```
