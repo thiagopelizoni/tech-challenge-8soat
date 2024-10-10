@@ -36,7 +36,7 @@ spec:
         command: ['sh', '-c', 'until pg_isready -h $POSTGRES_HOST -U $POSTGRES_USER -d $POSTGRES_DB; do echo waiting for database; sleep 2; done;']
       containers:
       - name: api-container
-        image: api:latest
+        image: thiagopelizoni/fastfood-api:latest
         command: ["/bin/bash", "-c", "/usr/bin/entrypoint.sh"]
         ports:
         - containerPort: 3000
