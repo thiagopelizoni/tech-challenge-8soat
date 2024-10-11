@@ -14,30 +14,10 @@ spec:
       labels:
         app: api
     spec:
-      initContainers:
-      - name: init-db
-        image: postgres:13
-        env:
-        - name: POSTGRES_USER
-          valueFrom:
-            secretKeyRef:
-              name: fastfood-api-secrets
-              key: POSTGRES_USER
-        - name: POSTGRES_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: fastfood-api-secrets
-              key: POSTGRES_PASSWORD
-        - name: POSTGRES_DB
-          valueFrom:
-            secretKeyRef:
-              name: fastfood-api-secrets
-              key: POSTGRES_DB
-        command: ['sh', '-c', 'until pg_isready -h $POSTGRES_HOST -U $POSTGRES_USER -d $POSTGRES_DB; do echo waiting for database; sleep 2; done;']
       containers:
       - name: api-container
         image: thiagopelizoni/fastfood-api:latest
-        command: ["/bin/bash", "-c", "/usr/bin/entrypoint.sh"]
+        command: ["/bin/bash", "-c", "bundle exec ruby lib/db_setup.rb && bin/rails server"]
         ports:
         - containerPort: 3000
         env:
@@ -76,11 +56,3 @@ spec:
             secretKeyRef:
               name: fastfood-api-secrets
               key: POSTGRES_PORT
-        volumeMounts:
-        - name: api-volume
-          mountPath: /api
-      volumes:
-      - name: api-volume
-        persistentVolumeClaim:
-          claimName: api-pvc
----
