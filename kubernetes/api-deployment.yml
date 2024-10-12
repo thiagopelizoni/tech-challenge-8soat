@@ -17,7 +17,7 @@ spec:
       containers:
       - name: api-container
         image: thiagopelizoni/fastfood-api:latest
-        command: ["/bin/bash", "-c", "bundle exec ruby lib/db_setup.rb && bin/rails server"]
+        command: ["/bin/bash", "-c", "bundle exec ruby lib/db_setup.rb && bin/rails server -b 0.0.0.0"]
         ports:
         - containerPort: 3000
         env:
