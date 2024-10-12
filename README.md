@@ -6,6 +6,7 @@ Tech Challenge do curso de [Pós-Graduação em Arquitetura de Software da FIAP]
 
 * [Docker](https://docs.docker.com/engine/install/)
 * [Docker Compose](https://github.com/docker/compose)
+* [Minikube](https://k8s-docs.netlify.app/en/docs/tasks/tools/install-minikube/)
 
 # Instalação
 
@@ -105,16 +106,20 @@ curl -X 'PUT' 'http://localhost:3000/pedidos/298/finalizar' -H 'accept: */*'
 
 # Kubernetes
 
-# Requisitos
-
-* [Minikube](https://k8s-docs.netlify.app/en/docs/tasks/tools/install-minikube/)
+Para subir a infraestrutura necessária deste projeto basta executar:
 
 ```
-bash kubernetes.sh
+bash apply.sh
 ```
 
 Para conferir se tudo está correto, basta executar os comandos abaixo:
 
 ```
 kubectl get all
+```
+
+Para remover a infraestrutura, basta executar:
+
+```
+bash remove.sh
 ```
