@@ -2,6 +2,8 @@ Rails.application.routes.draw do
   mount Rswag::Ui::Engine => '/api-docs'
   mount Rswag::Api::Engine => '/api-docs'
   root "categorias#index"
+
+  post 'webhooks/mercado-pago', to: 'webhooks#mercado_pago'
   
   resources :pedidos do
     collection do
@@ -21,6 +23,7 @@ Rails.application.routes.draw do
       put 'preparar', to: 'pedidos#preparar'
       put 'pronto', to: 'pedidos#pronto'
       put 'finalizar', to: 'pedidos#finalizar'
+      get 'qr-code', to: 'pedidos#qr_code'
     end
   end
 

@@ -1,3 +1,5 @@
+require 'mercadopago'
+
 class Pedido < ApplicationRecord
   belongs_to :cliente, optional: true
 
@@ -13,6 +15,37 @@ class Pedido < ApplicationRecord
   validate :status_presence_based_on_pagamento
 
   before_update :validate_status_change
+
+  def criar_preferencia_mercado_pago
+    sdk = Mercadopago::SDK.new(ENV['MERCADO_PAGO_ACCESS_TOKEN'])
+
+    itens = produtos.map do |produto_id|
+      produto = Produto.find(produto_id)
+      {
+        title: produto.nome,
+        quantity: 1,
+        unit_price: produto.preco.to_f
+      }
+    end
+  
+    preference_data = {
+      items: itens,
+      payer: {
+        name: cliente.nome,
+        email: cliente.email
+      },
+      external_reference: id.to_s,
+      notification_url: ENV['MERCADO_PAGO_WEBHOOK_URL'],
+      payment_methods: {
+        excluded_payment_types: [
+          { id: 'ticket' }
+        ]
+      }
+    }
+  
+    preference_response = sdk.preference.create(preference_data)
+    preference_response
+  end
 
   private
 

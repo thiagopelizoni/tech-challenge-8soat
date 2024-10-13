@@ -300,4 +300,16 @@ RSpec.describe 'Pedidos API', type: :request do
       end
     end
   end
+
+  path '/pedidos/{id}/qr-code' do
+    get 'Gera o QR de pagamento para um pedido' do
+      tags 'Pedidos'
+      parameter name: :id, in: :path, type: :integer
+
+      response '422', 'parâmetros inválidos' do
+        let(:id) { 'invalid' }
+        run_test!
+      end
+    end
+  end
 end
