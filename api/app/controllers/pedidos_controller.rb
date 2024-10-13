@@ -1,5 +1,5 @@
 class PedidosController < ApplicationController
-  before_action :set_pedido, only: %i[ show update destroy pagar preparar receber pronto finalizar ]
+  before_action :set_pedido, only: %i[ show update destroy pagar preparar receber pronto finalizar qr_code ]
 
   # GET /pedidos
   def index
@@ -156,13 +156,23 @@ class PedidosController < ApplicationController
     end
   end
 
+  # GET /pedidos/:id/qr-code
+  def qr_code
+    preference = @pedido.criar_preferencia_mercado_pago
+  
+    if preference['status'] == '201'
+      qr_code_url = preference['response']['sandbox_init_point']
+      render json: { qr_code_url: qr_code_url }
+    else
+      render json: { error: 'Erro ao criar a preferência de pagamento.' }, status: :unprocessable_entity
+    end
+  end
+
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_pedido
       @pedido = Pedido.find(params[:id])
     end
 
-    # Only allow a list of trusted parameters through.
     def pedido_params
       params.require(:pedido).permit(:valor, :status, :observacao, :pagamento, :cliente_id, produtos: [])
     end

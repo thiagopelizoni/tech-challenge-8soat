@@ -57,5 +57,4 @@ gem 'rswag'
 gem 'rswag-api'
 gem 'rswag-ui'
 
-
-gem 'mercadopago'
+gem 'mercadopago-sdk', '~> 2.2', '>= 2.2.1'

@@ -58,7 +58,7 @@ curl -X 'POST' \
 
 ### Webhook para receber confirmação de pagamento
 
-@ToDo
+https://www.mercadopago.com.br/developers/panel/app/4174081168856284/webhooks
 
 ### Lista de Pedidos
 
@@ -123,3 +123,10 @@ Para remover a infraestrutura, basta executar:
 ```
 bash remove.sh
 ```
+
+## Arquitetura
+
+https://miro.com/app/board/uXjVLT5mOMY=/
+
+# Mercado Pago
+
