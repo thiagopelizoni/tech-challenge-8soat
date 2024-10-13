@@ -1,3 +1,5 @@
+require 'mercadopago'
+
 class Pedido < ApplicationRecord
   belongs_to :cliente, optional: true
 
@@ -15,13 +17,14 @@ class Pedido < ApplicationRecord
   before_update :validate_status_change
 
   def criar_preferencia_mercado_pago
-    sdk = MercadoPago::SDK.new(ENV['MERCADO_PAGO_ACCESS_TOKEN'])
-  
-    itens = produtos.map do |produto|
+    sdk = Mercadopago::SDK.new(ENV['MERCADO_PAGO_ACCESS_TOKEN'])
+
+    itens = produtos.map do |produto_id|
+      produto = Produto.find(produto_id)
       {
         title: produto.nome,
         quantity: 1,
-        unit_price: produto.valor.to_f
+        unit_price: produto.preco.to_f
       }
     end
   
@@ -40,8 +43,8 @@ class Pedido < ApplicationRecord
       }
     }
   
-    preference = sdk.preference.create(preference_data)
-    preference
+    preference_response = sdk.preference.create(preference_data)
+    preference_response
   end
 
   private

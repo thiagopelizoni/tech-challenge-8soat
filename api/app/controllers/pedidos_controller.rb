@@ -158,13 +158,13 @@ class PedidosController < ApplicationController
 
   # GET /pedidos/:id/qr-code
   def qr_code
-    preference = @pedido.criar_preferencia_mercado_pago
-  
-    if preference['status'] == '201'
-      qr_code_url = preference['response']['sandbox_init_point']
+    preference_response = @pedido.criar_preferencia_mercado_pago
+
+    if preference_response[:status] == 201
+      qr_code_url = preference_response[:response]['sandbox_init_point'] #'init_point' para produção
       render json: { qr_code_url: qr_code_url }
     else
-      render json: { error: 'Erro ao criar a preferência de pagamento.' }, status: :unprocessable_entity
+      render json: { error: "Erro ao criar a preferência: #{preference_response[:response]['message']}" }, status: :unprocessable_entity
     end
   end
 

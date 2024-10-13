@@ -149,12 +149,4 @@ RSpec.describe 'Clientes API', type: :request do
       end
     end
   end
-
-  path '/clientes/data_nascimento/{data_nascimento}' do
-    get 'Busca clientes pela Data de Nascimento' do
-      tags 'Clientes'
-      produces 'application/json'
-      parameter name: :data_nascimento, in: :path, type: :string, description: 'Data de nascimento do cliente (YYYY-MM-DD)'
-  
-      response '200', 'Clientes encontrados' do
-        schema type: :array,
+end

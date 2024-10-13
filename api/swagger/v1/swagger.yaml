@@ -100,6 +100,144 @@ paths:
                   type: string
               required:
               - nome
+  "/clientes":
+    get:
+      summary: Listar Clientes
+      tags:
+      - Clientes
+      responses:
+        '200':
+          description: clientes encontrados
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/cliente"
+    post:
+      summary: Cria um cliente
+      tags:
+      - Clientes
+      parameters: []
+      responses:
+        '201':
+          description: cliente criado
+        '422':
+          description: parâmetros inválidos
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/cliente"
+  "/clientes/{id}":
+    get:
+      summary: Busca um Cliente pelo seu ID
+      tags:
+      - Clientes
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: cliente encontrado
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/cliente"
+        '404':
+          description: cliente não encontrado
+    put:
+      summary: Atualiza um cliente
+      tags:
+      - Clientes
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: cliente atualizado
+        '422':
+          description: parâmetros inválidos
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/cliente"
+  "/clientes/nome/{nome}":
+    get:
+      summary: Busca clientes pelo Nome
+      tags:
+      - Clientes
+      parameters:
+      - name: nome
+        in: path
+        description: Nome do cliente
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Clientes encontrados
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/cliente"
+        '404':
+          description: Nenhum cliente encontrado
+  "/clientes/email/{email}":
+    get:
+      summary: Busca clientes por email
+      tags:
+      - Clientes
+      parameters:
+      - name: email
+        in: path
+        description: Email do cliente
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Clientes encontrados
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/cliente"
+        '404':
+          description: Nenhum cliente encontrado
+  "/clientes/cpf/{cpf}":
+    get:
+      summary: Busca um cliente pelo CPF
+      tags:
+      - Clientes
+      parameters:
+      - name: cpf
+        in: path
+        description: CPF do cliente
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Clientes encontrados
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/cliente"
+        '404':
+          description: Nenhum cliente encontrado
   "/pedidos":
     get:
       summary: Listar Pedidos
@@ -483,6 +621,20 @@ paths:
       responses:
         '200':
           description: pedido finalizado
+        '422':
+          description: parâmetros inválidos
+  "/pedidos/{id}/qr-code":
+    get:
+      summary: Gera o QR de pagamento para um pedido
+      tags:
+      - Pedidos
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
         '422':
           description: parâmetros inválidos
   "/produtos":

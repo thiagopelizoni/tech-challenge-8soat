@@ -23,7 +23,7 @@ Rails.application.routes.draw do
       put 'preparar', to: 'pedidos#preparar'
       put 'pronto', to: 'pedidos#pronto'
       put 'finalizar', to: 'pedidos#finalizar'
-      get 'qr-code', to: 'pedidos#generate_qr_code'
+      get 'qr-code', to: 'pedidos#qr_code'
     end
   end
 
