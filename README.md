@@ -128,5 +128,3 @@ bash remove.sh
 
 https://miro.com/app/board/uXjVLT5mOMY=/
 
-# Mercado Pago
-

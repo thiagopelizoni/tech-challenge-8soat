@@ -625,7 +625,7 @@ paths:
           description: parâmetros inválidos
   "/pedidos/{id}/qr-code":
     get:
-      summary: Gera o QR de pagamento para um pedido
+      summary: Obtém a URL para pagamento de um pedido junto ao Mercado Pago
       tags:
       - Pedidos
       parameters:

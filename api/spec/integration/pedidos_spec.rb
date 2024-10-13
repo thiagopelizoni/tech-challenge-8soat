@@ -302,7 +302,7 @@ RSpec.describe 'Pedidos API', type: :request do
   end
 
   path '/pedidos/{id}/qr-code' do
-    get 'Gera o QR de pagamento para um pedido' do
+    get 'Obtém a URL para pagamento de um pedido junto ao Mercado Pago' do
       tags 'Pedidos'
       parameter name: :id, in: :path, type: :integer
 
