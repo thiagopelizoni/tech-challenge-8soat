@@ -10,7 +10,7 @@ class AuthController < ApplicationController
         render json: { message: "CPF e senha são obrigatórios." }, status: :unprocessable_entity
         return
       end
-  
+
       uri = URI(ENV['API_GATEWAY_URL'])
       http = Net::HTTP.new(uri.host, uri.port)
       http.use_ssl = uri.scheme == 'https'

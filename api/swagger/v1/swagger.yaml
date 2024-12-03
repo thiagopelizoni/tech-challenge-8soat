@@ -4,6 +4,77 @@ info:
   title: API V1
   version: v1
 paths:
+  "/login":
+    post:
+      summary: Login do cliente
+      tags:
+      - Autenticação
+      parameters: []
+      responses:
+        '200':
+          description: Login bem-sucedido
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  nome:
+                    type: string
+                    example: João Silva
+                  email:
+                    type: string
+                    example: joao.silva@example.com
+                  cpf:
+                    type: string
+                    example: '12345678901'
+        '401':
+          description: Credenciais inválidas
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Credenciais inválidas.
+        '422':
+          description: Parâmetros ausentes
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: CPF e senha são obrigatórios.
+        '502':
+          description: Erro no serviço de autenticação
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Erro ao comunicar com o serviço de autenticação.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                cpf:
+                  type: string
+                  example: '12345678901'
+                senha:
+                  type: string
+                  example: "@TechChallenge!"
+              required:
+              - cpf
+              - senha
   "/categorias":
     get:
       summary: Listar Categorias
