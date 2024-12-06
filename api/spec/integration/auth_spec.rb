@@ -12,14 +12,14 @@ RSpec.describe 'Auth API', type: :request do
         type: :object,
         properties: {
           cpf: { type: :string, example: '12345678901' },
-          senha: { type: :string, example: '@TechChallenge!' }
+          senha: { type: :string, example: '@TechChallenge!2024' }
         },
         required: %w[cpf senha]
       }
 
       response '200', 'Login bem-sucedido' do
-        let(:cliente) { create(:cliente, cpf: '12345678901', senha: '123456') }
-        let(:payload) { { cpf: cliente.cpf, senha: '@TechChallenge!' } }
+        let(:cliente) { create(:cliente, cpf: '12345678901', senha: '@TechChallenge!2024') }
+        let(:payload) { { cpf: cliente.cpf, senha: '@TechChallenge!2024' } }
 
         before do
           allow(Net::HTTP).to receive(:post_form).and_return(OpenStruct.new(
@@ -31,8 +31,8 @@ RSpec.describe 'Auth API', type: :request do
         schema type: :object,
                properties: {
                  id: { type: :integer, example: 1 },
-                 nome: { type: :string, example: 'João Silva' },
-                 email: { type: :string, example: 'joao.silva@example.com' },
+                 nome: { type: :string, example: 'Aristóteles' },
+                 email: { type: :string, example: 'aristoteles@greek.com' },
                  cpf: { type: :string, example: '12345678901' }
                }
 

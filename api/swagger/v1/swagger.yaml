@@ -23,10 +23,10 @@ paths:
                     example: 1
                   nome:
                     type: string
-                    example: João Silva
+                    example: Aristóteles
                   email:
                     type: string
-                    example: joao.silva@example.com
+                    example: aristoteles@greek.com
                   cpf:
                     type: string
                     example: '12345678901'
@@ -71,7 +71,7 @@ paths:
                   example: '12345678901'
                 senha:
                   type: string
-                  example: "@TechChallenge!"
+                  example: "@TechChallenge!2024"
               required:
               - cpf
               - senha
