@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   mount Rswag::Api::Engine => '/api-docs'
   root "categorias#index"
 
+  post 'login', to: 'auth#login'
+
   post 'webhooks/mercado-pago', to: 'webhooks#mercado_pago'
   
   resources :pedidos do
