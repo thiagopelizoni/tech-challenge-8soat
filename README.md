@@ -70,3 +70,7 @@ Na Fase 3, estes arquivos foram separados e encontram-se no repositório https:/
 ## Arquitetura
 
 https://miro.com/app/board/uXjVLT5mOMY=/
+
+# Fase 3
+
+Integração com [serviço de autenticação serverless](https://github.com/thiagopelizoni/tech-challenge-auth-service).
