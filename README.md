@@ -1,4 +1,4 @@
-# Tech Challenge 8SOAT
+# Pos Tech FIAP | Software Arquitecture | 8SOAT
 
 Tech Challenge do curso de [Pós-Graduação em Arquitetura de Software da FIAP](https://postech.fiap.com.br/curso/software-architecture/).
 
@@ -6,7 +6,6 @@ Tech Challenge do curso de [Pós-Graduação em Arquitetura de Software da FIAP]
 
 * [Docker](https://docs.docker.com/engine/install/)
 * [Docker Compose](https://github.com/docker/compose)
-* [Minikube](https://k8s-docs.netlify.app/en/docs/tasks/tools/install-minikube/)
 
 # Instalação
 
@@ -29,6 +28,8 @@ A aplicação estará disponível em http://localhost:3000/.
 
 # Fase 2
 
+O vídeo com a apresentação dos entregáveis requeridos nesta fase pode ser acessado em https://youtu.be/4sS36rzY2zA.
+
 ## API
 
 Lista de requisitos que a API deve contemplar nesta fase.
@@ -36,19 +37,6 @@ Lista de requisitos que a API deve contemplar nesta fase.
 ###  Checkout retornando a identificação do mesmo
 
 * POST /pedidos
-
-```
-curl -X 'POST' \
-  'http://localhost:3000/pedidos' \
-  -H 'accept: */*' \
-  -H 'Content-Type: application/json' \
-  -d '{
-"valor": "75.0",
-"pagamento": "em_aberto",
-"cliente_id": 4,
-"produtos": [3, 7, 2, 15, 13, 23, 22]
-}'
-```
 
 ### Consultar o status do pagamento dos pedidos
 
@@ -70,64 +58,15 @@ https://www.mercadopago.com.br/developers/panel/app/4174081168856284/webhooks
 ### Atualizar o status do Pedido
 
 * PUT /pedidos/:id
-
-```
-curl -X 'PUT' \
-  'http://localhost:3000/pedidos/298' \
-  -H 'accept: */*' \
-  -H 'Content-Type: application/json' \
-  -d '{
-  "status": "em_preparacao"
-}'
-```
-
 * PUT /pedidos/:id/receber
-
-``
-curl -X 'PUT' 'http://localhost:3000/pedidos/298/receber' -H 'accept: */*'
-``
 * PUT /pedidos/:id/preparar
-
-``
-curl -X 'PUT' 'http://localhost:3000/pedidos/298/preparar' -H 'accept: */*'
-``
-
 * PUT /pedidos/:id/pronto
-
-``
-curl -X 'PUT' 'http://localhost:3000/pedidos/298/pronto' -H 'accept: */*'
-``
-
 * PUT /pedidos/:id/finalizar
 
-``
-curl -X 'PUT' 'http://localhost:3000/pedidos/298/finalizar' -H 'accept: */*'
-``
+## Kubernetes
 
-# Kubernetes
-
-Para subir a infraestrutura necessária deste projeto basta executar:
-
-```
-bash apply.sh
-```
-
-Para conferir se tudo está correto, basta executar os comandos abaixo:
-
-```
-kubectl get all
-```
-
-Para remover a infraestrutura, basta executar:
-
-```
-bash remove.sh
-```
+Na Fase 3, estes arquivos foram separados e encontram-se no repositório https://github.com/thiagopelizoni/tech-challenge-kubernetes.
 
 ## Arquitetura
 
 https://miro.com/app/board/uXjVLT5mOMY=/
-
-# Apresentação
-
-https://youtu.be/4sS36rzY2zA
